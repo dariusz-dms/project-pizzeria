@@ -61,6 +61,12 @@ const select = {
   }
 
   const app = {
+    initData: function () {
+      const thisApp = this;
+  
+      thisApp.data = dataSource;
+  },
+
     initMenu: function(){
       const testProduct = new Product();
       console.log('testProduct:', testProduct);
@@ -74,6 +80,7 @@ const select = {
       console.log('settings:', settings);
       console.log('templates:', templates);
 
+      thisApp.initData();
       thisApp.initMenu();
     },
   };
