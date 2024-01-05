@@ -118,7 +118,7 @@ const select = {
     getElements() {
       const thisProduct = this;
   
-      thisProduct.accordionTrigger.addEventListener('click', function(event);
+      thisProduct.accordionTrigger.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
