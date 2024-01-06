@@ -57,6 +57,7 @@ const select = {
       const thisWidget = this;
       thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.getElements(element);
+      thisWidget.initActions();
     }
   
     setValue(value) {
@@ -83,8 +84,7 @@ const select = {
         thisWidget.setValue(thisWidget.input.value);
       });
     }
-  }
-
+  
     initActions() {
       const thisWidget = this;
 
@@ -101,7 +101,8 @@ const select = {
         event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
       });
-    }
+    }  
+  }  
 
   class Product{
     constructor(id, data){
