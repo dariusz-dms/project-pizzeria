@@ -64,13 +64,17 @@ const select = {
       const thisWidget = this;
       const newValue = parseInt(value);
     
-      if (!isNaN(newValue)) {
+      if (!isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
-        thisWidget.input.value = thisWidget.value;
-      } else {
-        thisWidget.input.value = thisWidget.value;
+      } else if (newValue < settings.amountWidget.defaultMin) {
+        thisWidget.value = settings.amountWidget.defaultMin;
+      } else if (newValue > settings.amountWidget.defaultMax) {
+        thisWidget.value = settings.amountWidget.defaultMax;
       }
+    
+      thisWidget.input.value = thisWidget.value;
     }
+    
   
     getElements(element) {
       const thisWidget = this;
