@@ -55,33 +55,34 @@ const select = {
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
-
+      thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.getElements(element);
-      thisWidget.initActions();
     }
-
+  
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-
-      /*TODO: add validation */
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+  
+      if (!isNaN(newValue)) {
         thisWidget.value = newValue;
       }
-
-      thisWidget.value = newValue;
+  
       thisWidget.input.value = thisWidget.value;
     }
-
+  
     getElements(element) {
       const thisWidget = this;
-
       thisWidget.element = element;
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
       thisWidget.setValue(thisWidget.input.value);
+  
+      thisWidget.input.addEventListener('change', function () {
+        thisWidget.setValue(thisWidget.input.value);
+      });
     }
+  }
 
     initActions() {
       const thisWidget = this;
@@ -100,7 +101,6 @@ const select = {
         thisWidget.setValue(thisWidget.value + 1);
       });
     }
-  }
 
   class Product{
     constructor(id, data){
