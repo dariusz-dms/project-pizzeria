@@ -62,12 +62,13 @@ const select = {
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-  
+    
       if (!isNaN(newValue)) {
         thisWidget.value = newValue;
+        thisWidget.input.value = thisWidget.value;
+      } else {
+        thisWidget.input.value = thisWidget.value;
       }
-  
-      thisWidget.input.value = thisWidget.value;
     }
   
     getElements(element) {
