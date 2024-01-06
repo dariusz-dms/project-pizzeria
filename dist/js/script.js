@@ -52,6 +52,23 @@ const select = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+  
+      thisWidget.getElements(element);
+    }
+  
+    getElements(element) {
+      const thisWidget = this;
+  
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+  }
+
   class Product{
     constructor(id, data){
       const thisProduct = this;
@@ -64,6 +81,7 @@ const select = {
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
+      thisProduct.initAmountWidget();
 
       console.log('new Product:', thisProduct);
     }
@@ -179,15 +197,23 @@ const select = {
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+    }
+
+    initAmountWidget() {
+      const thisProduct = this;
+  
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget); // Element widgetu ilościowego
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem); // Inicjalizacja widgetu ilościowego
     }
   }
 
-  const app = {
+    const app = {
     initData: function () {
       const thisApp = this;
   
       thisApp.data = dataSource;
-  },
+    },
 
     initMenu: function () {
       const thisApp = this;
@@ -197,7 +223,7 @@ const select = {
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
-  },
+    },
 
     init: function(){
       const thisApp = this;
