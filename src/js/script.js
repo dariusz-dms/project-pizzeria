@@ -98,6 +98,7 @@ class AmountWidget {
     thisWidget.input.addEventListener('change', function () {
     });
   }
+}
 
 class Product{
   constructor(id, data) {
