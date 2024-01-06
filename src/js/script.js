@@ -58,7 +58,18 @@ const select = {
   
       thisWidget.getElements(element);
     }
-  
+    
+    setValue(value){
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      /*TODO: add vallidation */
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+    }
+
     getElements(element) {
       const thisWidget = this;
   
@@ -205,6 +216,7 @@ const select = {
   
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget); // Element widgetu ilościowego
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem); // Inicjalizacja widgetu ilościowego
+      thisProduct.amountWidget.setValue(1);
     }
   }
 
