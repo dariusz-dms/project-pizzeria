@@ -149,11 +149,18 @@ const select = {
             if (!option.default) {
               price += option.price;
             }
+            // Show image if option is selected
+            if (thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`)) {
+              thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`).classList.add('active');
+            }
           } else {
             if (option.default) {
               price -= option.price;
             }
-          }  
+            // Hide image if option is not selected
+            if (thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`)) {
+              thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`).classList.remove('active');
+          }
         }
       }
     
