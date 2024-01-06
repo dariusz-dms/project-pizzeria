@@ -153,6 +153,7 @@ const select = {
             if (option.default) {
               price -= option.price;
             }
+          }  
         }
       }
     
