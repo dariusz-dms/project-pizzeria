@@ -55,7 +55,7 @@ class AmountWidget {
   constructor(element) {
     const thisWidget = this;
     thisWidget.value = settings.amountWidget.defaultValue;
-    thisWidget.priceSingle = 0; // Placeholder for the single price of the product
+    thisWidget.priceSingle = 0;
     thisWidget.getElements(element);
   }
 
@@ -102,7 +102,7 @@ class AmountWidget {
   constructor(element) {
     const thisWidget = this;
     thisWidget.value = settings.amountWidget.defaultValue;
-    thisWidget.priceSingle = 0; // Placeholder for the single price of the product
+    thisWidget.priceSingle = 0;
     thisWidget.getElements(element);
   }
 
