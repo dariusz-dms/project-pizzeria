@@ -99,7 +99,7 @@ class AmountWidget {
     });
   }
 
-class Product {
+class Product{
   constructor(id, data) {
     const thisProduct = this;
 
