@@ -64,6 +64,53 @@ class AmountWidget {
     const newValue = parseInt(value);
 
     if (!isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
+      thisWidget.value = newValue;
+      const newPrice = thisWidget.value * thisWidget.priceSingle;
+      thisWidget.announce();
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.triggerEvent('updated', { value: thisWidget.value });
+      thisWidget.updatePrice(newPrice);
+    } else if (newValue < settings.amountWidget.defaultMin) {
+      thisWidget.setValue(settings.amountWidget.defaultMin);
+    } else if (newValue > settings.amountWidget.defaultMax) {
+      thisWidget.setValue(settings.amountWidget.defaultMax);
+    }
+  }
+
+  updatePrice(newPrice) {
+    const thisWidget = this;
+
+    thisWidget.price = newPrice;
+    thisWidget.priceElem.innerHTML = newPrice;
+    thisWidget.announce();
+  }
+
+  getElements(element) {
+    const thisWidget = this;
+    thisWidget.element = element;
+    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    thisWidget.setValue(thisWidget.input.value);
+
+    thisWidget.input.addEventListener('change', function () {
+      thisWidget.setValue(thisWidget.input.value);
+    });
+  }
+}
+
+  constructor(element) {
+    const thisWidget = this;
+    thisWidget.value = settings.amountWidget.defaultValue;
+    thisWidget.priceSingle = 0; // Placeholder for the single price of the product
+    thisWidget.getElements(element);
+  }
+
+  setValue(value) {
+    const thisWidget = this;
+    const newValue = parseInt(value);
+
+    if (!isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
       const oldPrice = thisWidget.value * thisWidget.priceSingle;
       thisWidget.value = newValue;
       const newPrice = thisWidget.value * thisWidget.priceSingle;
