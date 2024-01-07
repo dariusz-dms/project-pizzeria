@@ -1,8 +1,6 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
-
 {
   'use strict';
-
 const select = {
   templateOf: {
     menuProduct: "#template-menu-product",
@@ -51,7 +49,6 @@ const select = {
       remove: '[href="#remove"]',
     },
   };
-
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -61,7 +58,6 @@ const select = {
       wrapperActive: 'active',
     },
   };
-
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -72,19 +68,15 @@ const select = {
       defaultDeliveryFee: 20,
     },
   };
-
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   };
-
   class Product{
     constructor(id, data){
       const thisProduct = this;
-
       thisProduct.id = id;
       thisProduct.data = data;
-
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
@@ -94,10 +86,8 @@ const select = {
       
       console.log('new Product:', thisProduct);
     }
-
     renderInMenu(){
       const thisProduct = this;
-
       /* generete HTML based on template */
       const generatedHTML = templates.menuProduct(thisProduct.data);
       /* create element using utils.createElementFromHTML */
@@ -131,7 +121,6 @@ const select = {
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
     }
-
     initOrderForm() {
       const thisProduct = this;
     
@@ -151,7 +140,6 @@ const select = {
         thisProduct.processOrder();
       });
     }
-
     processOrder() {
       const thisProduct = this;
     
@@ -197,7 +185,6 @@ const select = {
      // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
-
     initAmountWidget() {
       const thisProduct = this;
   
@@ -207,7 +194,6 @@ const select = {
         thisProduct.processOrder();
       });
     }
-
     getElements() {
       const thisProduct = this;
     
@@ -233,7 +219,7 @@ const select = {
       thisWidget.value = thisWidget.correctValue;
       thisWidget.setValue(thisWidget.input.value ? thisWidget.input.value : settings.amountWidget.defaultValue);
     }
-  
+
     setValue(value) {
       const thisWidget = this;
   
@@ -282,7 +268,7 @@ const select = {
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
       thisWidget.amountInput = thisWidget.element.querySelector('.amount');
     }
-  
+
     announce() {
       const thisWidget = this;
   
@@ -335,7 +321,6 @@ const select = {
       thisApp.initMenu();
       thisApp.initCart();
     },
-
     initData: function () {
       const thisApp = this;
   
