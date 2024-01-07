@@ -28,7 +28,6 @@ const select = {
     widgets: {
       amount: {
         input: 'input.amount',
-        input: 'input[name="amount"]',
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
@@ -219,6 +218,7 @@ const select = {
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      thisProduct.amountWidget = thisProduct.element.querySelector('.amount');
     }
   }
 
@@ -232,7 +232,6 @@ const select = {
       thisWidget.correctValue = 1;
       thisWidget.value = thisWidget.correctValue;
       thisWidget.setValue(thisWidget.input.value ? thisWidget.input.value : settings.amountWidget.defaultValue);
-
     }
   
     setValue(value) {
@@ -281,6 +280,7 @@ const select = {
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      thisWidget.amountInput = thisWidget.element.querySelector('.amount');
     }
   
     announce() {
