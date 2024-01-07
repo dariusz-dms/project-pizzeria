@@ -52,76 +52,6 @@ const select = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
-  class AmountWidget {
-    constructor(element, product) {
-      const thisWidget = this;
-  
-      thisWidget.getElements(element);
-      thisWidget.product = product;
-      thisWidget.correctValue = 1;
-      thisWidget.value = thisWidget.correctValue;
-      thisWidget.setValue(thisWidget.value);
-      thisWidget.initActions();
-    }
-  
-    setValue(value) {
-      const thisWidget = this;
-  
-      const newValue = parseInt(value);
-  
-            if (!isNaN(newValue) && newValue >= 1 && newValue <= 10) {
-        if (thisWidget.correctValue !== newValue) {
-          thisWidget.correctValue = newValue;
-          thisWidget.value = thisWidget.correctValue;
-          thisWidget.announce();
-          thisWidget.input.value = thisWidget.value;
-          thisWidget.product.processOrder();
-        }
-      } else {
-        thisWidget.input.value = thisWidget.value;
-      }
-    }
-  
-    initActions() {
-      const thisWidget = this;
-    
-      thisWidget.input.addEventListener('change', function () {
-        const value = thisWidget.input.value !== '' ? thisWidget.input.value : thisWidget.value;
-        thisWidget.setValue(value);
-      });
-    
-      thisWidget.linkDecrease.addEventListener('click', function (event) {
-        event.preventDefault();
-        const newValue = thisWidget.input.value !== '' ? thisWidget.input.value - 1 : thisWidget.value - 1;
-        thisWidget.setValue(newValue);
-      });
-    
-      thisWidget.linkIncrease.addEventListener('click', function (event) {
-        event.preventDefault();
-        const newValue = thisWidget.input.value !== '' ? parseInt(thisWidget.input.value) + 1 : thisWidget.value + 1;
-        thisWidget.setValue(newValue);
-      });
-    }
-  
-    getElements(element) {
-      const thisWidget = this;
-  
-      thisWidget.element = element;
-      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-    }
-  
-    announce() {
-      const thisWidget = this;
-  
-      const event = new CustomEvent('updated', {
-        bubbles: true,
-      });
-      thisWidget.element.dispatchEvent(event);
-    }
-  }
-
   class Product{
     constructor(id, data){
       const thisProduct = this;
@@ -133,9 +63,9 @@ const select = {
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.processOrder();
       thisProduct.initAmountWidget();
-
+      thisProduct.processOrder();
+      
       console.log('new Product:', thisProduct);
     }
 
@@ -236,8 +166,20 @@ const select = {
           }
         }
       }
+     // multiply price by amount 
+     price *= thisProduct.amountWidget.value 
      // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
+    }
+
+    initAmountWidget() {
+      const thisProduct = this;
+  
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem, thisProduct);
+      thisProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisProduct.processOrder();
+      });
     }
 
     getElements() {
@@ -251,15 +193,79 @@ const select = {
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
-
-    initAmountWidget() {
-      const thisProduct = this;
-  
-      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget); // Element widgetu ilościowego
-      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem); // Inicjalizacja widgetu ilościowego
-    }
   }
 
+  class AmountWidget {
+    constructor(element, product) {
+      const thisWidget = this;
+  
+      thisWidget.getElements(element);
+      thisWidget.initActions();
+      thisWidget.product = product;
+      thisWidget.correctValue = 1;
+      thisWidget.value = thisWidget.correctValue;
+      thisWidget.setValue(thisWidget.input.value);
+      
+    }
+  
+    setValue(value) {
+      const thisWidget = this;
+  
+      const newValue = parseInt(value);
+  
+      if (!isNaN(newValue) && newValue >= 1 && newValue <= 10) {
+        if (thisWidget.correctValue !== newValue) {
+          thisWidget.correctValue = newValue;
+          thisWidget.value = thisWidget.correctValue;
+          thisWidget.announce();
+          thisWidget.input.value = thisWidget.value;
+          thisWidget.product.processOrder();
+        }
+      } else {
+        thisWidget.input.value = thisWidget.value;
+      }
+    }
+  
+    initActions() {
+      const thisWidget = this;
+  
+      thisWidget.input.addEventListener('change', function () {
+        const value = thisWidget.input.value !== '' ? thisWidget.input.value : thisWidget.value;
+        thisWidget.setValue(value);
+      });
+  
+      thisWidget.linkDecrease.addEventListener('click', function (event) {
+        event.preventDefault();
+        const newValue = thisWidget.input.value !== '' ? thisWidget.input.value - 1 : thisWidget.value - 1;
+        thisWidget.setValue(newValue);
+      });
+  
+      thisWidget.linkIncrease.addEventListener('click', function (event) {
+        event.preventDefault();
+        const newValue = thisWidget.input.value !== '' ? parseInt(thisWidget.input.value) + 1 : thisWidget.value + 1;
+        thisWidget.setValue(newValue);
+      });
+    }
+  
+    getElements(element) {
+      const thisWidget = this;
+  
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+  
+    announce() {
+      const thisWidget = this;
+  
+      const event = new Event('updated', {
+        bubbles: true,
+      });
+      thisWidget.element.dispatchEvent(event);
+    }
+  }
+ 
     const app = {
     initData: function () {
       const thisApp = this;
