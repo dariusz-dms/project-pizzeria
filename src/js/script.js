@@ -149,7 +149,6 @@ const select = {
       thisProduct.cartButton.addEventListener('click', function(event) {
         event.preventDefault();
         thisProduct.processOrder();
-        thisProduct.addToCart();
       });
     }
 
@@ -221,23 +220,7 @@ const select = {
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
       thisProduct.amountWidget = thisProduct.element.querySelector('.amount');
     }
-
-    addToCart(){
-      const thisProduct = this;
-
-      app.cart.add(thisProduct);
     }
-
-    prepareCartProduct() {
-      const thisProduct = this;
-
-      const productSumarry = {
-        id: thisProduct.id;
-        name: thisProduct.name;
-        amount: thisProduct.amount
-      };
-    };
-  }
   }
 
   class AmountWidget {
@@ -310,6 +293,7 @@ const select = {
       thisWidget.element.dispatchEvent(event);
     }
   }
+
   class Cart {
     constructor(element) {
       const thisCart = this;
@@ -339,11 +323,6 @@ const select = {
       });
     }
 
-    add(menuProduct) {
-      // const thisCart = this
-
-      console.log('adding product', menuProduct);
-    }
   }
   
   const app = {
