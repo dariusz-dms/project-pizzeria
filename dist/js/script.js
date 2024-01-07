@@ -204,8 +204,8 @@ const select = {
       thisWidget.product = product;
       thisWidget.correctValue = 1;
       thisWidget.value = thisWidget.correctValue;
-      thisWidget.setValue(thisWidget.input.value);
-      
+      thisWidget.setValue(thisWidget.input.value ? thisWidget.input.value : settings.amountWidget.defaultValue);
+
     }
   
     setValue(value) {
