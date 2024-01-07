@@ -211,7 +211,8 @@ const select = {
     }
     addToCart() {
       const thisProduct = this;
-      app.cart.add(thisProduct);
+      const cartProductSummary = thisProduct.prepareCartProduct();
+      app.cart.add(cartProductSummary);
     }
     prepareCartProduct() {
       const thisProduct = this;
@@ -222,7 +223,35 @@ const select = {
       productSummary.amount = thisProduct.amount;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.priceSingle * thisProduct.amount;
+      
+      productSummary.params = {};
+      
       return productSummary;
+    }
+    prepareCartProductParams() {
+      const thisProduct = this;
+      const params = {};
+  
+      // for every category (param)...
+      for (let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+  
+        // for every option in this category
+        for (let optionId in param.options) {
+          const option = param.options[optionId];
+          const optionSelected = thisProduct.element.querySelector(`[name="${paramId}"][value="${optionId}"]:checked`);
+  
+          if (optionSelected) {
+            params[paramId].options[optionId] = option.label;
+          }
+        }
+      }
+  
+      return params;
     }
   }
 
