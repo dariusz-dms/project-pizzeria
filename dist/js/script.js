@@ -164,7 +164,7 @@ const select = {
           const option = param.options[optionId];
           if (formData[paramId] && formData[paramId].includes(optionId)) {
             if (!option.default) {
-              price += option.price;
+              price += parseFloat(option.price);
             }
             // Show image if option is selected
             if (thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`)) {
@@ -225,7 +225,7 @@ const select = {
       productSummary.price = thisProduct.priceSingle * thisProduct.amount;
       
       productSummary.params = thisProduct.prepareCartProductParams();
-      
+
       return productSummary;
     }
     
@@ -349,6 +349,10 @@ const select = {
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList); // Dodajemy odniesienie do listy produktów
+  
+      // Przykładowy console.log, aby sprawdzić czy lista produktów została poprawnie odnaleziona
+      console.log('Product list element:', thisCart.dom.productList);
     }
   
     initActions() {
@@ -359,10 +363,15 @@ const select = {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
     }
-
+  
     add(menuProduct) {
-      // const thisCart  =  this;
-
+      const thisCart = this;
+  
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+  
+      thisCart.dom.productList.appendChild(generatedDOM);
+  
       console.log('adding product', menuProduct);
     }
   }
