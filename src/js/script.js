@@ -220,9 +220,9 @@ const select = {
     
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
-      productSummary.amount = thisProduct.amount;
+      productSummary.amount = thisProduct.amountWidget.value;
       productSummary.priceSingle = thisProduct.priceSingle;
-      productSummary.price = thisProduct.priceSingle * thisProduct.amount;
+      productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
       
       productSummary.params = thisProduct.prepareCartProductParams();
 
@@ -339,7 +339,7 @@ const select = {
   
       thisCart.getElements(element);
       thisCart.initActions();
-  
+      
       console.log('new Cart', thisCart);
     }
   
@@ -351,7 +351,6 @@ const select = {
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList); // Dodajemy odniesienie do listy produktów
   
-      // Przykładowy console.log, aby sprawdzić czy lista produktów została poprawnie odnaleziona
       console.log('Product list element:', thisCart.dom.productList);
     }
   
@@ -370,11 +369,39 @@ const select = {
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
   
+      // Append the new product to the cart
       thisCart.dom.productList.appendChild(generatedDOM);
   
+      // Add the new product to the cart's products array
+      thisCart.products.push(menuProduct);
+  
+      // Update price and quantity after adding to cart
+      thisCart.update();
       console.log('adding product', menuProduct);
     }
+  
+    update() {
+      const thisCart = this;
+  
+      let totalPrice = 0;
+      let totalNumber = 0;
+  
+      // Loop through all products in the cart
+      thisCart.products.forEach(product => {
+        totalPrice += product.price;
+        totalNumber += product.amount;
+      });
+  
+      // Update totalPrice and totalNumber elements in the cart
+      const cartTotalPrice = thisCart.dom.wrapper.querySelector(select.cart.totalPrice);
+      const cartTotalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+  
+      cartTotalPrice.innerHTML = totalPrice;
+      cartTotalNumber.innerHTML = totalNumber;
+    }
   }
+    
+  
   
   const app = {
     init: function(){
