@@ -217,44 +217,50 @@ const select = {
     prepareCartProduct() {
       const thisProduct = this;
       const productSummary = {}; 
-
+    
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
       productSummary.amount = thisProduct.amount;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.priceSingle * thisProduct.amount;
       
-      productSummary.params = {};
+      productSummary.params = thisProduct.prepareCartProductParams();
       
       return productSummary;
     }
+    
     prepareCartProductParams() {
       const thisProduct = this;
+    
+      const formData = utils.serializeFormToObject(thisProduct.form);
       const params = {};
-  
-      // for every category (param)...
-      for (let paramId in thisProduct.data.params) {
+    
+      // for very category (param)
+      for(let paramId in thisProduct.data.params) {
         const param = thisProduct.data.params[paramId];
+    
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
         params[paramId] = {
           label: param.label,
           options: {}
-        };
-  
+        }
+    
         // for every option in this category
-        for (let optionId in param.options) {
+        for(let optionId in param.options) {
           const option = param.options[optionId];
-          const optionSelected = thisProduct.element.querySelector(`[name="${paramId}"][value="${optionId}"]:checked`);
-  
-          if (optionSelected) {
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+    
+          if(optionSelected) {
+            // option is selected!
             params[paramId].options[optionId] = option.label;
           }
         }
       }
-  
+    
       return params;
     }
-  }
-
+    }
+    
   class AmountWidget {
     constructor(element, product) {
       const thisWidget = this;
