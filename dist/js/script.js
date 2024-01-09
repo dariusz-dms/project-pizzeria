@@ -376,7 +376,8 @@ const select = {
       const cartProduct = new CartProduct(menuProduct, generatedDOM);
       console.log('Adding product:', cartProduct);
   
-      thisCart.products.push(cartProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+
   
       thisCart.update();
     }
