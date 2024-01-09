@@ -409,9 +409,11 @@ const select = {
       thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price;
-      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params)); // Clone object
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params)); // Klonujemy obiekt
   
       thisCartProduct.getElements(element);
+  
+      thisCartProduct.initAmountWidget();
   
       console.log('thisCartProduct:', thisCartProduct);
     }
@@ -427,7 +429,53 @@ const select = {
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
     }
+    getElements(element) {
+      const thisCartProduct = this;
+  
+      thisCartProduct.dom = {};
+      thisCartProduct.dom.wrapper = element;
+  
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
+    }
+
+  
+    initAmountWidget() {
+      const thisCartProduct = this;
+  
+      thisCartProduct.amountWidgetElem = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem, thisCartProduct);
+  
+      thisCartProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisCartProduct.amount = thisCartProduct.amountWidget.value; // Ustawienie nowej wartości liczby sztuk
+  
+        // Przeliczenie ceny z uwzględnieniem nowej ilości
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
+  
+        // Wyświetlenie na stronie nowej ceny
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
+    } 
+    
+    initAmountWidget() {
+      const thisCartProduct = this;
+  
+      thisCartProduct.amountWidgetElem = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem, thisCartProduct);
+  
+      thisCartProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisCartProduct.amount = thisCartProduct.amountWidget.value; // Ustawienie nowej wartości liczby sztuk
+  
+        // Przeliczenie ceny z uwzględnieniem nowej ilości
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
+  
+        // Aktualizacja ceny na stronie
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price; // Aktualizacja HTML-a
+      });
   }
+  
   
   const app = {
     init: function(){
