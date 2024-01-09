@@ -212,9 +212,7 @@ const select = {
     addToCart() {
       const thisProduct = this;
       const cartProductSummary = thisProduct.prepareCartProduct();
-      const cartProduct = new CartProduct(cartProductSummary);
-      app.cart.add(cartProduct);
-    }
+      app.cart.add(cartProductSummary);
     }
     prepareCartProduct() {
       const thisProduct = this;
@@ -333,34 +331,6 @@ const select = {
       thisWidget.element.dispatchEvent(event);
     }
   }
-
-  class CartProduct {
-    constructor(menuProduct, element) {
-      const thisCartProduct = this;
-      thisCartProduct.id = menuProduct.id;
-      thisCartProduct.name = menuProduct.name;
-      thisCartProduct.amount = menuProduct.amount;
-      thisCartProduct.priceSingle = menuProduct.priceSingle;
-      thisCartProduct.price = menuProduct.price;
-      thisCartProduct.params = menuProduct.params;
-      thisCartProduct.initAmountWidget();
-      thisCartProduct.getElements(element);
-
-      console.log('thisCartProduct:', thisCartProduct);
-    }
-
-    getElements(element) {
-      const thisCartProduct = this;
-      thisCartProduct.dom = {};
-      thisCartProduct.dom.wrapper = element;
-      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
-      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
-      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
-      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
-    }
-
-  }
-
   class Cart {
     constructor(element) {
       const thisCart = this;
@@ -404,7 +374,6 @@ const select = {
   
       // Add the new product to the cart's products array
       thisCart.products.push(menuProduct);
-      console.log('thisCart.products', thisCart.products);
   
       // Update price and quantity after adding to cart
       thisCart.update();
@@ -431,7 +400,9 @@ const select = {
       cartTotalNumber.innerHTML = totalNumber;
     }
   }
-      
+    
+  
+  
   const app = {
     init: function(){
       const thisApp = this;
