@@ -212,7 +212,9 @@ const select = {
     addToCart() {
       const thisProduct = this;
       const cartProductSummary = thisProduct.prepareCartProduct();
-      app.cart.add(cartProductSummary);
+      const cartProduct = new CartProduct(cartProductSummary);
+      app.cart.add(cartProduct);
+    }
     }
     prepareCartProduct() {
       const thisProduct = this;
