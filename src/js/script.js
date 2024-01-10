@@ -363,6 +363,9 @@ const select = {
         event.preventDefault();
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+      thisCart.dom.productList.addEventListener('updated', function(){
+        thisCart.update();
+      });
     }
   
     add(menuProduct) {
@@ -373,13 +376,13 @@ const select = {
   
       thisCart.dom.productList.appendChild(generatedDOM);
   
+      // Dodaj właściwy obiekt CartProduct do listy produktów w koszyku
       const cartProduct = new CartProduct(menuProduct, generatedDOM);
+      thisCart.products.push(cartProduct);
+  
       console.log('Adding product:', cartProduct);
   
-      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-
-  
-      thisCart.update();
+      thisCart.update(); // Wywołaj metodę aktualizacji koszyka po dodaniu produktu
     }
   
     update() {
@@ -409,12 +412,10 @@ const select = {
       thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price;
-      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params)); // Klonujemy obiekt
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
   
       thisCartProduct.getElements(element);
-  
       thisCartProduct.initAmountWidget();
-  
       console.log('thisCartProduct:', thisCartProduct);
     }
   
@@ -423,13 +424,16 @@ const select = {
   
       thisCartProduct.dom = {};
       thisCartProduct.dom.wrapper = element;
-  
       thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
+      thisCartProduct.dom.deliveryFee = document.querySelector(select.cart.deliveryFee);
+      thisCartProduct.dom.subtotalPrice = document.querySelector(select.cart.subtotalPrice);
+      thisCartProduct.dom.totalPrice = document.querySelectorAll(select.cart.totalPrice);
+      thisCartProduct.dom.totalNumber = document.querySelector(select.cart.totalNumber);
     }
-       
+      
     initAmountWidget() {
       const thisCartProduct = this;
   
@@ -437,17 +441,27 @@ const select = {
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem, thisCartProduct);
   
       thisCartProduct.amountWidgetElem.addEventListener('updated', function () {
-        thisCartProduct.amount = thisCartProduct.amountWidget.value; // Ustawienie nowej wartości liczby sztuk
-  
-        // Przeliczenie ceny z uwzględnieniem nowej ilości
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
         thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
   
-        // Aktualizacja ceny na stronie
-        thisCartProduct.dom.price.innerHTML = thisCartProduct.price; // Aktualizacja HTML-a
-      });
-  }
-}
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
   
+        // Dodaj wywołanie metody update w klasie Cart po zmianie ilości produktów
+        thisCartProduct.product.update();
+      });
+    }
+
+    updatePrice() {
+      const thisCartProduct = this;
+  
+      // Przelicz cenę produktu
+      thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
+      thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+  
+      // Dodaj wywołanie metody update w klasie Cart po aktualizacji ceny
+      thisCartProduct.product.update();
+    }
+  }
   const app = {
     init: function(){
       const thisApp = this;
