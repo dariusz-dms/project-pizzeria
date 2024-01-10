@@ -387,20 +387,36 @@ const select = {
   
     update() {
       const thisCart = this;
-  
       let totalPrice = 0;
       let totalNumber = 0;
-  
+    
       thisCart.products.forEach(product => {
         totalPrice += product.price;
         totalNumber += product.amount;
       });
-  
+    
       const cartTotalPrice = thisCart.dom.wrapper.querySelector(select.cart.totalPrice);
       const cartTotalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
-  
+    
       cartTotalPrice.innerHTML = totalPrice;
       cartTotalNumber.innerHTML = totalNumber;
+    
+      // Obliczanie i aktualizacja sumy cen wszystkich produktów w koszyku
+      let subtotalPrice = 0;
+      thisCart.products.forEach(product => {
+        subtotalPrice += product.price;
+      });
+    
+      // Aktualizacja wyświetlania sumy cen wszystkich produktów w koszyku
+      const cartSubtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
+      cartSubtotalPrice.innerHTML = subtotalPrice;
+    
+      // Obliczanie i aktualizacja całkowitej ceny (wraz z opłatą za dostawę)
+      const cartTotalPriceWithDelivery = subtotalPrice + settings.cart.defaultDeliveryFee;
+      const cartTotalPriceElements = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
+      cartTotalPriceElements.forEach(element => {
+        element.innerHTML = cartTotalPriceWithDelivery;
+      });
     }
   }
   class CartProduct {
