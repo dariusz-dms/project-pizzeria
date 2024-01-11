@@ -297,8 +297,22 @@
       thisCart.dom.productList.addEventListener('updated', function () {
         thisCart.update();
       });
+      thisCart.dom.productList.addEventListener('remove', function (event) {
+        thisCart.remove(event.detail.cartProduct);
+      });
     }
 
+    remove(cartProduct) {
+      const thisCart = this;
+      const index = thisCart.products.indexOf(cartProduct);
+  
+      if (index !== -1) {
+        thisCart.products.splice(index, 1);
+        cartProduct.dom.wrapper.remove();
+        thisCart.update();
+      }
+    }
+    
     add(menuProduct) {
       const thisCart = this;
       const generatedHTML = templates.cartProduct(menuProduct);
@@ -358,6 +372,8 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions();
+
     }
 
     getElements(element) {
@@ -374,7 +390,6 @@
       thisCartProduct.dom.totalPrice = document.querySelectorAll(select.cart.totalPrice);
       thisCartProduct.dom.totalNumber = document.querySelector(select.cart.totalNumber);
 
-      // Ustawienie właściwości product dla thisCartProduct
       thisCartProduct.product = null;
     }
 
@@ -390,12 +405,43 @@
 
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
 
-        // Sprawdź, czy thisCartProduct.product istnieje, zanim użyjesz metody update
         if (thisCartProduct.product) {
           thisCartProduct.product.update();
         }
       });
     }
+
+    initActions() {
+      const thisCartProduct = this;
+  
+      thisCartProduct.dom.edit.addEventListener('click', function (event) {
+        event.preventDefault();
+        // Tutaj możesz dodać kod obsługujący edycję produktu
+        console.log('Edit button clicked for product:', thisCartProduct);
+      });
+  
+      thisCartProduct.dom.remove.addEventListener('click', function (event) {
+        event.preventDefault();
+        // Wywołujemy metodę remove przy kliknięciu guzika usuwania
+        thisCartProduct.remove();
+      });
+    }
+
+    remove() {
+      const thisCartProduct = this;
+
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct,
+      },
+      });
+
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+
+      console.log('Product removed:', thisCartProduct);
+    }
+
   }
   const app = {
     init: function () {
