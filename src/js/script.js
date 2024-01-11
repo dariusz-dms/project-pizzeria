@@ -314,20 +314,34 @@
       const thisCart = this;
       let totalPrice = 0;
       let totalNumber = 0;
+    
       thisCart.products.forEach(product => {
         totalPrice += product.price;
         totalNumber += product.amount;
       });
+    
       thisCart.dom.totalPrice.innerHTML = totalPrice;
       thisCart.dom.totalNumber.innerHTML = totalNumber;
+    
       let subtotalPrice = 0;
       thisCart.products.forEach(product => {
         subtotalPrice += product.price;
       });
-      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+    
       const totalDeliveryFee = settings.cart.defaultDeliveryFee;
+      thisCart.dom.deliveryFee.innerHTML = totalDeliveryFee;
+    
       const totalCartPrice = subtotalPrice + totalDeliveryFee;
       thisCart.dom.totalPrice.innerHTML = totalCartPrice;
+      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+    
+      const subtotalElem = thisCart.dom.wrapper.querySelector('.cart__order-subtotal .cart__order-price-sum strong');
+      const deliveryElem = thisCart.dom.wrapper.querySelector('.cart__order-delivery .cart__order-price-sum strong');
+      const totalElem = thisCart.dom.wrapper.querySelector('.cart__order-total .cart__order-price-sum strong');
+    
+      subtotalElem.innerHTML = subtotalPrice;
+      deliveryElem.innerHTML = totalDeliveryFee;
+      totalElem.innerHTML = totalCartPrice;
     }
   }
 
