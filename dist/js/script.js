@@ -364,6 +364,7 @@
     totalElem.innerHTML = thisCart.dom.totalPrice.innerHTML;
   }
   }
+  
 
   class CartProduct {
     constructor(menuProduct, element) {
