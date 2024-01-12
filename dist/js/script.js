@@ -68,10 +68,10 @@
       defaultDeliveryFee: 20,
     },
     db: {
-      url: '//localhost:3131',
-      products: 'products',
-      orders: 'orders',
-    },
+  url: '//localhost:3131',
+  products: 'products',
+  orders: 'orders',
+},
   };
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -461,31 +461,56 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
-
+  
+      // Przenieś initData do initMenu, aby mieć pewność, że dane są załadowane przed inicjalizacją menu
       thisApp.initData();
-      thisApp.initMenu();
-      thisApp.initCart();
-    },
-    initData: function () {
-      const thisApp = this;
-
-      thisApp.data = dataSource;
+      thisApp.initCart(); // Przenieś to wywołanie do miejsca, gdzie będziesz chciał zainicjować koszyk
     },
     initMenu: function () {
       const thisApp = this;
-
+  
+      // Dodałem console.log, aby sprawdzić, czy dane zostały prawidłowo ustawione
       console.log('thisApp.data:', thisApp.data);
-
-      for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+  
+      for (let productId in thisApp.data.products) {
+        const productData = thisApp.data.products[productId];
+        new Product(productData.id, productData);
       }
+    },
+    initData: function () {
+      const thisApp = this;
+  
+      // Zastąp dataSource pustym obiektem
+      thisApp.data = {};
+  
+      // Utwórz stałą url z użyciem konfiguracji
+      const url = `${settings.db.url}/${settings.db.products}`;
+  
+      // Pobierz dane asynchronicznie i ustaw je w thisApp.data
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+  
+          // Ustaw dane w thisApp.data.products
+          thisApp.data.products = parsedResponse;
+  
+          // Inicjalizuj menu po załadowaniu danych
+          thisApp.initMenu();
+  
+          // Sprawdź, czy dane zostały prawidłowo zapisane
+          console.log('thisApp.data', JSON.stringify(thisApp.data));
+        });
     },
     initCart: function () {
       const thisApp = this;
-
+  
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
     }
   };
+  
   app.init();
 }
