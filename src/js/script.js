@@ -468,8 +468,24 @@
     },
     initData: function () {
       const thisApp = this;
+  
+      thisApp.data = {};
+  
+      const url = settings.db.url + '/' + settings.db.products;
+      
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parasedResponse', parsedResponse);
 
-      thisApp.data = dataSource;
+          /*save parsedResponse as thisApp.data.products */
+
+          /* execute initMenu method */
+        });
+
+       console.log('thisApp.data', JSON.stringify(thisApp.data)); 
     },
     initMenu: function () {
       const thisApp = this;
