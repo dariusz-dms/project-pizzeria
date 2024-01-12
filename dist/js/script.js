@@ -406,11 +406,9 @@
         .then(response => response.json())
         .then(parsedResponse => {
           console.log('Order sent successfully:', parsedResponse);
-          // Tutaj możesz dodać dodatkową logikę po udanym wysłaniu zamówienia
         })
         .catch(error => {
           console.error('Error while sending order:', error);
-          // Tutaj możesz obsłużyć błąd wysyłania zamówienia
         });
     }
   }
