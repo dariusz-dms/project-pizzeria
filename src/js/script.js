@@ -475,7 +475,7 @@
         price: thisCartProduct.price,
         priceSingle: thisCartProduct.priceSingle,
         name: thisCartProduct.name,
-        params: { ...thisCartProduct.params },
+        params: thisCartProduct.params,
       };
   
       return productData;
@@ -561,7 +561,6 @@
     initMenu: function () {
       const thisApp = this;
   
-      // Dodałem console.log, aby sprawdzić, czy dane zostały prawidłowo ustawione
       console.log('thisApp.data:', thisApp.data);
   
       for (let productId in thisApp.data.products) {
@@ -572,13 +571,10 @@
     initData: function () {
       const thisApp = this;
   
-      // Zastąp dataSource pustym obiektem
       thisApp.data = {};
   
-      // Utwórz stałą url z użyciem konfiguracji
       const url = `${settings.db.url}/${settings.db.products}`;
   
-      // Pobierz dane asynchronicznie i ustaw je w thisApp.data
       fetch(url)
         .then(function(rawResponse){
           return rawResponse.json();
@@ -586,13 +582,10 @@
         .then(function(parsedResponse){
           console.log('parsedResponse', parsedResponse);
   
-          // Ustaw dane w thisApp.data.products
           thisApp.data.products = parsedResponse;
   
-          // Inicjalizuj menu po załadowaniu danych
           thisApp.initMenu();
   
-          // Sprawdź, czy dane zostały prawidłowo zapisane
           console.log('thisApp.data', JSON.stringify(thisApp.data));
         });
     },
