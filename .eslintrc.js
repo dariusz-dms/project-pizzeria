@@ -1,11 +1,14 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true,
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
     ],
     "overrides": [
         {
@@ -34,5 +37,6 @@ module.exports = {
         'import/default': 'error',
         'import/namespace': 'error',
         'import/export': 'error',
+        'no-unused-vars': 'error',
     }
 }
