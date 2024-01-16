@@ -204,27 +204,36 @@
   ],
   "orders": [
     {
-      "products": [],
-      "totalNumber": "0",
-      "totalPrice": "0",
-      "subtotalPrice": "0",
-      "deliveryFee": "0",
+      "products": [
+        {
+          "id": "cake",
+          "amount": 8,
+          "price": 72,
+          "priceSingle": 9,
+          "name": "Zio Stefano's Doughnut",
+          "params": {}
+        }
+      ],
+      "totalNumber": "8",
+      "totalPrice": "92",
+      "subtotalPrice": "72",
+      "deliveryFee": "20",
       "id": 1
     },
     {
       "products": [
         {
           "id": "cake",
-          "amount": 6,
-          "price": 54,
+          "amount": 8,
+          "price": 72,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "6",
-      "totalPrice": "74",
-      "subtotalPrice": "54",
+      "totalNumber": "8",
+      "totalPrice": "92",
+      "subtotalPrice": "72",
       "deliveryFee": "20",
       "id": 2
     },
@@ -232,16 +241,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 6,
-          "price": 54,
+          "amount": 8,
+          "price": 72,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "6",
-      "totalPrice": "74",
-      "subtotalPrice": "54",
+      "totalNumber": "8",
+      "totalPrice": "92",
+      "subtotalPrice": "72",
       "deliveryFee": "20",
       "id": 3
     },
@@ -249,6 +258,14 @@
       "products": [
         {
           "id": "cake",
+          "amount": 10,
+          "price": 90,
+          "priceSingle": 9,
+          "name": "Zio Stefano's Doughnut",
+          "params": {}
+        },
+        {
+          "id": "cake",
           "amount": 6,
           "price": 54,
           "priceSingle": 9,
@@ -256,9 +273,9 @@
           "params": {}
         }
       ],
-      "totalNumber": "6",
-      "totalPrice": "74",
-      "subtotalPrice": "54",
+      "totalNumber": "16",
+      "totalPrice": "164",
+      "subtotalPrice": "144",
       "deliveryFee": "20",
       "id": 4
     },
@@ -266,6 +283,14 @@
       "products": [
         {
           "id": "cake",
+          "amount": 10,
+          "price": 90,
+          "priceSingle": 9,
+          "name": "Zio Stefano's Doughnut",
+          "params": {}
+        },
+        {
+          "id": "cake",
           "amount": 6,
           "price": 54,
           "priceSingle": 9,
@@ -273,9 +298,9 @@
           "params": {}
         }
       ],
-      "totalNumber": "6",
-      "totalPrice": "74",
-      "subtotalPrice": "54",
+      "totalNumber": "16",
+      "totalPrice": "164",
+      "subtotalPrice": "144",
       "deliveryFee": "20",
       "id": 5
     },
@@ -283,516 +308,18 @@
       "products": [
         {
           "id": "cake",
-          "amount": 8,
-          "price": 72,
+          "amount": 9,
+          "price": 81,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "8",
-      "totalPrice": "92",
-      "subtotalPrice": "72",
+      "totalNumber": "9",
+      "totalPrice": "101",
+      "subtotalPrice": "81",
       "deliveryFee": "20",
       "id": 6
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 8,
-          "price": 72,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "8",
-      "totalPrice": "92",
-      "subtotalPrice": "72",
-      "deliveryFee": "20",
-      "id": 7
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 8,
-          "price": 80,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "13",
-      "totalPrice": "145",
-      "subtotalPrice": "125",
-      "deliveryFee": "20",
-      "id": 8
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 8,
-          "price": 80,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "13",
-      "totalPrice": "145",
-      "subtotalPrice": "125",
-      "deliveryFee": "20",
-      "id": 9
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 8,
-          "price": 80,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "13",
-      "totalPrice": "145",
-      "subtotalPrice": "125",
-      "deliveryFee": "20",
-      "id": 10
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 8,
-          "price": 80,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "13",
-      "totalPrice": "145",
-      "subtotalPrice": "125",
-      "deliveryFee": "20",
-      "id": 11
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
-      "deliveryFee": "20",
-      "id": 12
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
-      "deliveryFee": "20",
-      "id": 13
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 9,
-          "price": 81,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "9",
-      "totalPrice": "101",
-      "subtotalPrice": "81",
-      "deliveryFee": "20",
-      "id": 14
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 9,
-          "price": 81,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "9",
-      "totalPrice": "101",
-      "subtotalPrice": "81",
-      "deliveryFee": "20",
-      "id": 15
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 16
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 17
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 18
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 19
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 20
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 5,
-          "price": 45,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "salad",
-          "amount": 9,
-          "price": 90,
-          "priceSingle": 10,
-          "name": "Nonno Alberto's Salad",
-          "params": {
-            "ingredients": {
-              "label": "Ingredients",
-              "options": {
-                "cucumber": "Cucumber",
-                "tomatoes": "Tomatoes",
-                "olives": "Olives",
-                "herbs": "Fresh herbs",
-                "pepper": "Black pepper"
-              }
-            }
-          }
-        }
-      ],
-      "totalNumber": "14",
-      "totalPrice": "155",
-      "subtotalPrice": "135",
-      "deliveryFee": "20",
-      "id": 21
     }
-  ],
-  "events": [
-    {
-      "id": 1,
-      "date": "2024-01-18",
-      "hour": "12:30",
-      "table": 1,
-      "repeat": false,
-      "duration": 4,
-      "ppl": 3,
-      "starters": []
-    },
-    {
-      "id": 2,
-      "date": "2024-01-18",
-      "hour": "16:00",
-      "table": 3,
-      "repeat": "daily",
-      "duration": 2,
-      "ppl": 3,
-      "starters": ["bread", "lemonWater"]
-    },
-    {
-      "id": 3,
-      "date": "2024-01-18",
-      "hour": "12:00",
-      "table": 3,
-      "repeat": "daily",
-      "duration": 2,
-      "ppl": 3,
-      "starters": ["bread", "lemonWater"]
-    },
-    {
-      "id": 4,
-      "date": "2024-01-18",
-      "hour": "13:00",
-      "table": 2,
-      "repeat": "daily",
-      "duration": 4,
-      "ppl": 3,
-      "starters": []
-    },
-    {
-      "id": 5,
-      "date": "2024-01-18",
-      "hour": "18:00",
-      "table": 2,
-      "repeat": "daily",
-      "duration": 2,
-      "ppl": 3,
-      "starters": ["lemonWater"]
-    }
-  ],
-  "bookings": []
+  ]
 }

@@ -5,10 +5,13 @@
     templateOf: {
       menuProduct: '#template-menu-product',
       cartProduct: '#template-cart-product',
+      bookingWidget: '#template-booking-widget',
     },
     containerOf: {
       menu: '#product-list',
       cart: '#cart',
+      pages: '#pages',
+      booking: '.booking-wrapper',
     },
     all: {
       menuProducts: '#product-list > .product',
@@ -29,6 +32,15 @@
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
+      datePicker: {
+        wrapper: '.date-picker',
+        input: 'input[name="date"]',
+      },
+      hourPicker: {
+        wrapper: '.hour-picker',
+        input: 'input[type="range"]',
+        output: '.output',
+      },
     },
     cart: {
       productList: '.cart__order-summary',
@@ -48,6 +60,14 @@
       edit: '[href="#edit"]',
       remove: '[href="#remove"]',
     },
+    booking: {
+      peopleAmount: '.people-amount',
+      hoursAmount: '.hours-amount',
+      tables: '.floor-plan .table',
+    },
+    nav: {
+      links: '.main-nav a',
+    },
   };
   const classNames = {
     menuProduct: {
@@ -56,6 +76,16 @@
     },
     cart: {
       wrapperActive: 'active',
+    },
+    booking: {
+      loading: 'loading',
+      tableBooked: 'booked',
+    },
+    nav: {
+      active: 'active',
+    },
+    pages: {
+      active: 'active',
     },
   };
   const settings = {
@@ -67,16 +97,56 @@
     cart: {
       defaultDeliveryFee: 20,
     },
+     hours: {
+      open: 12,
+      close: 24,
+    },
+    datePicker: {
+      maxDaysInFuture: 14,
+    },
     db: {
       url: '//localhost:3131',
       products: 'products',
       orders: 'orders',
+      bookings: 'bookings',
+      events: 'events',
+      dateStartParamKey: 'date_gte',
+      dateEndParamKey: 'date_lte',
+      notRepeatParam: 'repeat=false',
+      repeatParam: 'repeat_ne=false',
+    },
+    booking: {
+      loading: 'loading',
+      tableBooked: 'booked',
+      tableIdAttribute: 'data-table',
+    },
+    nav: {
+      active: 'active',
+    },
+    pages: {
+      active: 'active',
     },
   };
   const templates = {
-    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
-    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
+    menuProduct: null,
+    cartProduct: null,
+    bookingWidget: null,
   };
+
+  const getTemplate = (templateSelector) => {
+    const templateElement = document.querySelector(templateSelector);
+    if (templateElement) {
+      return Handlebars.compile(templateElement.innerHTML);
+    } else {
+      console.error(`Error: Template ${templateSelector} not found.`);
+      return null;
+    }
+  };
+
+  templates.menuProduct = getTemplate(select.templateOf.menuProduct);
+  templates.cartProduct = getTemplate(select.templateOf.cartProduct);
+  templates.bookingWidget = getTemplate(select.templateOf.bookingWidget);
+
   class Product {
     constructor(id, data) {
       const thisProduct = this;
