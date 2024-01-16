@@ -619,6 +619,48 @@
     }
   }
  
+  import AmountWidget from './AmountWidget.js';
+  import { select } from './settings.js';
+
+class Booking {
+    constructor(container) {
+        this.container = container;
+        this.initWidgets();
+        this.render();
+    }
+
+    initWidgets() {
+        this.dom = {};
+        this.dom.wrapper = this.container;
+        this.dom.wrapper.innerHTML = '<div class="booking-widget">Booking Widget Content</div>';
+
+        this.dom.peopleAmount = this.dom.wrapper.querySelector(select.booking.peopleAmount);
+        this.dom.hoursAmount = this.dom.wrapper.querySelector(select.booking.hoursAmount);
+
+        // Inicjalizacja AmountWidget dla "People amount"
+        this.amountWidgetPeople = new AmountWidget(this.dom.peopleAmount);
+
+        // Inicjalizacja AmountWidget dla "Hours amount"
+        this.amountWidgetHours = new AmountWidget(this.dom.hoursAmount);
+
+        // Tutaj możesz dodać dodatkowe logiki inicjacji widżetów
+
+        // Przykładowe nasłuchiwacze, możesz dostosować je według potrzeb
+        this.amountWidgetPeople.init();
+        this.amountWidgetHours.init();
+
+        // Możesz dodać inne logiki, jeśli są potrzebne
+        console.log('Widgets initialized in Booking');
+    }
+
+    render() {
+        // Tutaj możesz dodać kod obsługujący generowanie HTML i zmianę zawartości wrappera
+        console.log('Booking rendered in container:', this.dom.wrapper);
+    }
+}
+
+export default Booking;
+
   const app = {
     init() {
       const thisApp = this;
@@ -629,8 +671,9 @@
       console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initData();
+      thisApp.initMenu();
       thisApp.initCart();
+      thisApp.initBooking();
     },
     initMenu() {
       const thisApp = this;
@@ -667,7 +710,19 @@
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
     },
-  };
+    initBooking: function() {
+      const bookingContainerSelector = 'select.containerOf.booking';
+      const bookingContainer = document.querySelector(bookingContainerSelector);
 
+      if (bookingContainer) {
+          const bookingInstance = new Booking(bookingContainer);
+          // Możesz dodać dodatkowe logiki inicjacji lub manipulacji instancją Booking
+
+          console.log('Booking instance initialized:', bookingInstance);
+      } else {
+          console.error('Booking container not found:', bookingContainerSelector);
+      }
+  },
+  };
   app.init();
 }
