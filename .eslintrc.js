@@ -9,6 +9,7 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
+        "plugin:react/recommended",
     ],
     "overrides": [
         {
@@ -32,11 +33,12 @@ module.exports = {
         "import"
     ],
     "rules": {
+        'no-unused-vars': 'error',
         'import/no-unresolved': 'error',
         'import/named': 'error',
         'import/default': 'error',
         'import/namespace': 'error',
         'import/export': 'error',
-        'no-unused-vars': 'error',
+        
     }
 }
