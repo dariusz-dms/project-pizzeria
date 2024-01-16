@@ -140,13 +140,10 @@
     } else {
       console.error(`Error: Template ${templateSelector} not found.`);
       return null;
-    }
-  };
-
+    };}
   templates.menuProduct = getTemplate(select.templateOf.menuProduct);
   templates.cartProduct = getTemplate(select.templateOf.cartProduct);
   templates.bookingWidget = getTemplate(select.templateOf.bookingWidget);
-
   class Product {
     constructor(id, data) {
       const thisProduct = this;
@@ -621,6 +618,7 @@
       console.log('Product removed:', thisCartProduct);
     }
   }
+ 
   const app = {
     init() {
       const thisApp = this;

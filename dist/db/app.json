@@ -207,16 +207,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 8,
-          "price": 72,
+          "amount": 4,
+          "price": 36,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "8",
-      "totalPrice": "92",
-      "subtotalPrice": "72",
+      "totalNumber": "4",
+      "totalPrice": "56",
+      "subtotalPrice": "36",
       "deliveryFee": "20",
       "id": 1
     },
@@ -224,16 +224,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 8,
-          "price": 72,
+          "amount": 4,
+          "price": 36,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "8",
-      "totalPrice": "92",
-      "subtotalPrice": "72",
+      "totalNumber": "4",
+      "totalPrice": "56",
+      "subtotalPrice": "36",
       "deliveryFee": "20",
       "id": 2
     },
@@ -241,16 +241,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 8,
-          "price": 72,
+          "amount": 4,
+          "price": 36,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "8",
-      "totalPrice": "92",
-      "subtotalPrice": "72",
+      "totalNumber": "4",
+      "totalPrice": "56",
+      "subtotalPrice": "36",
       "deliveryFee": "20",
       "id": 3
     },
@@ -258,24 +258,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "cake",
-          "amount": 6,
-          "price": 54,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "16",
-      "totalPrice": "164",
-      "subtotalPrice": "144",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 4
     },
@@ -283,24 +275,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        },
-        {
-          "id": "cake",
-          "amount": 6,
-          "price": 54,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "16",
-      "totalPrice": "164",
-      "subtotalPrice": "144",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 5
     },
@@ -308,16 +292,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 9,
-          "price": 81,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "9",
-      "totalPrice": "101",
-      "subtotalPrice": "81",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 6
     },
@@ -325,16 +309,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 10,
-          "price": 90,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 7
     },
@@ -342,16 +326,16 @@
       "products": [
         {
           "id": "cake",
-          "amount": 10,
-          "price": 90,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 8
     },
@@ -359,26 +343,18 @@
       "products": [
         {
           "id": "cake",
-          "amount": 10,
-          "price": 90,
+          "amount": 7,
+          "price": 63,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
+      "totalNumber": "7",
+      "totalPrice": "83",
+      "subtotalPrice": "63",
       "deliveryFee": "20",
       "id": 9
-    },
-    {
-      "products": [],
-      "totalNumber": "0",
-      "totalPrice": "0",
-      "subtotalPrice": "0",
-      "deliveryFee": "0",
-      "id": 10
     },
     {
       "products": [
@@ -392,18 +368,79 @@
         },
         {
           "id": "cake",
-          "amount": 4,
-          "price": 36,
+          "amount": 3,
+          "price": 27,
           "priceSingle": 9,
           "name": "Zio Stefano's Doughnut",
           "params": {}
         }
       ],
-      "totalNumber": "11",
-      "totalPrice": "119",
-      "subtotalPrice": "99",
+      "totalNumber": "10",
+      "totalPrice": "110",
+      "subtotalPrice": "90",
       "deliveryFee": "20",
-      "id": 11
+      "id": 10
     }
-  ]
+  ],
+  "events": [
+    {
+      "id": 1,
+      "date": "2024-01-18",
+      "hour": "12:30",
+      "table": 1,
+      "repeat": false,
+      "duration": 4,
+      "ppl": 3,
+      "starters": []
+    },
+    {
+      "id": 2,
+      "date": "2024-01-18",
+      "hour": "16:00",
+      "table": 3,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "bread",
+        "lemonWater"
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-01-18",
+      "hour": "12:00",
+      "table": 3,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "bread",
+        "lemonWater"
+      ]
+    },
+    {
+      "id": 4,
+      "date": "2024-01-18",
+      "hour": "13:00",
+      "table": 2,
+      "repeat": "daily",
+      "duration": 4,
+      "ppl": 3,
+      "starters": []
+    },
+    {
+      "id": 5,
+      "date": "2024-01-18",
+      "hour": "18:00",
+      "table": 2,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": [
+        "lemonWater"
+      ]
+    }
+  ],
+  "bookings": []
 }
