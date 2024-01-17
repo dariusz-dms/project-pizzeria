@@ -204,79 +204,52 @@
   ],
   "orders": [
     {
-      "products": [],
-      "totalNumber": "0",
-      "totalPrice": "0",
-      "subtotalPrice": "0",
-      "deliveryFee": "0",
+      "products": [
+        {
+          "id": "breakfast",
+          "amount": 6,
+          "price": 54,
+          "priceSingle": 9,
+          "name": "Zia Giulia's Breakfast",
+          "params": {
+            "coffee": {
+              "label": "Coffee type",
+              "options": {
+                "latte": "Latte"
+              }
+            }
+          }
+        }
+      ],
+      "totalNumber": "6",
+      "totalPrice": "74",
+      "subtotalPrice": "54",
+      "deliveryFee": "20",
       "id": 1
     },
     {
-      "products": [],
-      "totalNumber": "0",
-      "totalPrice": "0",
-      "subtotalPrice": "0",
-      "deliveryFee": "0",
+      "products": [
+        {
+          "id": "breakfast",
+          "amount": 6,
+          "price": 54,
+          "priceSingle": 9,
+          "name": "Zia Giulia's Breakfast",
+          "params": {
+            "coffee": {
+              "label": "Coffee type",
+              "options": {
+                "latte": "Latte"
+              }
+            }
+          }
+        }
+      ],
+      "totalNumber": "6",
+      "totalPrice": "74",
+      "subtotalPrice": "54",
+      "deliveryFee": "20",
       "id": 2
-    },
-    {
-      "products": [],
-      "totalNumber": "0",
-      "totalPrice": "0",
-      "subtotalPrice": "0",
-      "deliveryFee": "0",
-      "id": 3
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
-      "deliveryFee": "20",
-      "id": 4
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
-      "deliveryFee": "20",
-      "id": 5
-    },
-    {
-      "products": [
-        {
-          "id": "cake",
-          "amount": 10,
-          "price": 90,
-          "priceSingle": 9,
-          "name": "Zio Stefano's Doughnut",
-          "params": {}
-        }
-      ],
-      "totalNumber": "10",
-      "totalPrice": "110",
-      "subtotalPrice": "90",
-      "deliveryFee": "20",
-      "id": 6
     }
   ],
   "events": [
