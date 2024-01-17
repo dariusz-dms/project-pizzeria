@@ -13,7 +13,7 @@
         "test:html": "html-validate src/*.html",
         "test:js": "eslint --fix src/js/",
         "test:scss": "stylelint --fix src/sass/",
-        "build": "babel src -d dist && npm-run-all test",
+        "build": "npm-run-all build:* test",
         "build:clean": "rimraf dist && mkdirp dist",
         "build:copy": "copyfiles -a -u 1 -e \"**/sass/**/*\" -e \"**/.gitkeep\" \"src/**/*\" dist",
         "build:sass": "sass --style=compressed --no-source-map src/sass:dist/css",
@@ -30,8 +30,6 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@babel/core": "^7.23.7",
-        "@babel/preset-env": "^7.23.8",
         "autoprefixer": "^10.2.4",
         "browser-sync": "^3.0.2",
         "copyfiles": "^2.1.0",
@@ -55,11 +53,11 @@
         "sass": "^1.44.0",
         "stylelint": "^14.11.0",
         "stylelint-config-standard-scss": "^5.0.0",
-        "stylelint-scss": "^4.3.0",
-        "presets": "@babel/preset-env"
+        "stylelint-scss": "^4.3.0"
     },
     "dependencies": {
         "axios": "^1.5.1",
-        "json-server": "^0.17.4"
+        "json-server": "^0.17.4",
+        "page": "^1.11.6"
     }
 }
