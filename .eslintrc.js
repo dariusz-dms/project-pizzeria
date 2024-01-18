@@ -20,7 +20,7 @@ module.exports = {
                 ".eslintrc.{js,cjs}"
             ],
             "parserOptions": {
-                "sourceType": "script"
+                "sourceType": "module"
             }
         }
     ],
@@ -39,6 +39,6 @@ module.exports = {
         'import/default': 'error',
         'import/namespace': 'error',
         'import/export': 'error',
-        
-    }
+    },
+    
 }

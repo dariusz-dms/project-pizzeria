@@ -18,5 +18,11 @@
     },
     "globals": {
       "Handlebars": false
+    },
+    "settings": {
+      "react": {
+          "version": "detect"
+        }
     }
 }
+

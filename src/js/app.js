@@ -2,9 +2,6 @@ import {settings, select, classNames, templates} from './settings.js';
 import Product from './components/Product.js';
 import Booking from './components/Booking.js';
 import Cart from './components/Cart.js';
-import AmountWidget from './components/AmountWidget.js';
-import CartProduct from './components/CartProduct.js';
-import utils from './utils.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const orderLink = document.querySelector('a[href="#order"]');
