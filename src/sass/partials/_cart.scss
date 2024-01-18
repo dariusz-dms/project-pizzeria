@@ -8,7 +8,7 @@
   width: 300px; // CODE CHANGED
   right: 0;
   top: $base-size;
-  padding: ($base-size) ($base-size * 1.5);
+  padding: $base-size ($base-size * 1.5); // CODE CHANGED
   background: $color-light;
   border-radius: $radius;
   color: $color-main;
@@ -21,7 +21,6 @@
       @include accordion-open();
       padding: ($base-size * 1.5) 0 0 0;
     }
-
   }
 
   &__summary {
@@ -73,16 +72,12 @@
       &:hover .btn-quantity--lt {
         opacity: 1;
       }
-
     }
-
   }
 
-  &__product { // CODE CHANGED
+  &__product {
     width: 170px; // CODE CHANGED
   }
-
-  // CODE ADDED START
 
   &__product-header {
     @include flex(row, center, space-between);
@@ -99,7 +94,6 @@
       line-height: 1.3;
       letter-spacing: 0.5px;
     }
-
   }
 
   &__product-details-label {
@@ -111,10 +105,7 @@
       position: absolute;
       content: ':';
     }
-
   }
-
-  // CODE ADDED END
 
   &__action-buttons {
     @include flex(row, center, space-between);
@@ -134,9 +125,7 @@
       &:hover {
         color: lighten($color-main, 3%);
       }
-
     }
-
   }
 
   &__order-price {
@@ -158,7 +147,5 @@
       width: 100%;
       margin-bottom: ($base-size / 2);
     }
-
   }
-
 }
