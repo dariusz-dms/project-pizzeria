@@ -5,7 +5,7 @@ class AmountWidget extends BaseWidget {
     constructor(element, product) {
       super(element, settings.amountWidget.defaultValue);
       const thisWidget = this;
-      thisWidget.getElements(element);
+      thisWidget.getElements();
       thisWidget.initActions();
       thisWidget.product = product;
       thisWidget.correctValue = 1;
@@ -15,9 +15,7 @@ class AmountWidget extends BaseWidget {
       console.log('AmountWidget:', thisWidget);
       //console.log('constructor arguments:' element)
     
-    
     }
-  
   
     setValue(value) {
       const thisWidget = this;
@@ -28,12 +26,12 @@ class AmountWidget extends BaseWidget {
           thisWidget.value = thisWidget.correctValue;
           thisWidget.announce();
 
-          this.Widget.dom.input.value = thisWidget.value;
+          thisWidget.dom.input.value = thisWidget.value;
           if (thisWidget.product && typeof thisWidget.product.processOrder === 'function') {
             thisWidget.product.processOrder();
           }
         
-    this.Widget.renderValue();
+    thisWidget.renderValue();
     }
   
     parseValue(value){
@@ -69,7 +67,7 @@ class AmountWidget extends BaseWidget {
       });
     }
   
-    getElements(element) {
+    getElements() {
       const thisWidget = this;
 
       this.Widget.dom.input = this.Widget.dom.wrapper.querySelector(select.widgets.amount.input);
@@ -83,7 +81,7 @@ class AmountWidget extends BaseWidget {
       const event = new Event('updated', {
         bubbles: true,
       });
-      this.Widget.dom.wrapper.dispatchEvent(event);
+      thisWidget.dom.wrapper.dispatchEvent(event);
     }
   }
   export default AmountWidget;
