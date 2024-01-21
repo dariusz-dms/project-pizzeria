@@ -107,6 +107,10 @@ class Cart {
       thisCart.dom.productList.appendChild(generatedDOM);
       const cartProduct = new CartProduct(menuProduct, generatedDOM);
       cartProduct.product = thisCart;
+
+      menuProduct.price = parseFloat(menuProduct.price);
+      menuProduct.amount = parseInt(menuProduct.amount);
+
       thisCart.products.push(cartProduct);
       thisCart.update();
     }
@@ -115,23 +119,23 @@ class Cart {
       const thisCart = this;
       let totalPrice = 0;
       let totalNumber = 0;
-  
+    
       thisCart.products.forEach((product) => {
         totalPrice += product.price;
         totalNumber += product.amount;
       });
-      
+    
       thisCart.totalPrice = totalPrice;
       thisCart.dom.totalPrice.innerHTML = totalPrice;
       thisCart.dom.totalNumber.innerHTML = totalNumber;
-  
+    
       let subtotalPrice = 0;
       thisCart.products.forEach((product) => {
         subtotalPrice += product.price;
       });
-
+    
       thisCart.subtotalPrice = subtotalPrice;
-  
+    
       if (thisCart.products.length === 0) {
         thisCart.dom.deliveryFee.innerHTML = 0;
         thisCart.dom.totalPrice.innerHTML = 0;
@@ -139,25 +143,26 @@ class Cart {
       } else {
         const totalDeliveryFee = settings.cart.defaultDeliveryFee;
         thisCart.dom.deliveryFee.innerHTML = totalDeliveryFee;
-  
+    
         const totalCartPrice = thisCart.subtotalPrice + totalDeliveryFee;
         thisCart.dom.totalPrice.innerHTML = totalCartPrice;
         thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       }
-  
+    
       const subtotalElem = thisCart.dom.wrapper.querySelector('.cart__order-subtotal .cart__order-price-sum strong');
       const deliveryElem = thisCart.dom.wrapper.querySelector('.cart__order-delivery .cart__order-price-sum strong');
       const totalElem = thisCart.dom.wrapper.querySelector('.cart__order-total .cart__order-price-sum strong');
-  
-      subtotalElem.innerHTML = subtotalPrice;
-      deliveryElem.innerHTML = thisCart.dom.deliveryFee.innerHTML;
-      totalElem.innerHTML = thisCart.dom.totalPrice.innerHTML;
-  
+    
+      subtotalElem.innerHTML = parseFloat(subtotalPrice.toFixed(2));
+      deliveryElem.innerHTML = parseFloat(thisCart.dom.deliveryFee.innerHTML);
+      totalElem.innerHTML = parseFloat(thisCart.dom.totalPrice.innerHTML);
+    
       thisCart.dom.wrapper.classList.add('updating');
       setTimeout(() => {
         thisCart.dom.wrapper.classList.remove('updating');
       }, 500);
     }
+    
   
     sendOrder() {
       const thisCart = this;

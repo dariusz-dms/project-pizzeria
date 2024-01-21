@@ -57,6 +57,9 @@ class CartProduct {
     thisCartProduct.amountWidgetElem = thisCartProduct.dom.amountWidget;
     thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem);
 
+    thisCartProduct.priceSingle = parseFloat(thisCartProduct.priceSingle);
+    thisCartProduct.amount = parseInt(thisCartProduct.amount);
+
     thisCartProduct.amountWidgetElem.addEventListener('updated', () => {
       thisCartProduct.amount = thisCartProduct.amountWidget.value;
       thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
@@ -85,18 +88,23 @@ class CartProduct {
 
   remove() {
     const thisCartProduct = this;
-
+  
     const event = new CustomEvent('remove', {
       bubbles: true,
       detail: {
         cartProduct: thisCartProduct,
       },
     });
-
+  
     thisCartProduct.dom.wrapper.dispatchEvent(event);
-
+  
     console.log('Product removed:', thisCartProduct);
+  
+    if (thisCartProduct.product) {
+      thisCartProduct.product.update();
+    }
   }
+  
 }
 
 export default CartProduct;
