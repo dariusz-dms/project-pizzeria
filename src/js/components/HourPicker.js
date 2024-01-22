@@ -21,7 +21,9 @@ class HourPicker extends BaseWidget {
       RangeSlider.create(thisWidget.dom.input);
       thisWidget.dom.input.addEventListener('input', function () {
         thisWidget.value = thisWidget.dom.input.value;
+        thisWidget.updateDisplayedHour();
         console.log('Input value:', thisWidget.dom.input.value);
+        thisWidget.updateDOM();
       });
     } else {
       console.error('RangeSlider is not defined. Make sure you have included the library.');
@@ -40,6 +42,11 @@ class HourPicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.dom.output.innerHTML = thisWidget.value;
+  }
+
+  updateDisplayedHour() {
+    const thisWidget = this;
+    thisWidget.dom.output.innerHTML = thisWidget.parseValue(thisWidget.value);
   }
 }
 
