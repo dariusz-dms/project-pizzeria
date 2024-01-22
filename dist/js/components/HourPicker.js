@@ -1,6 +1,7 @@
 import BaseWidget from './BaseWidget.js';
 import { select, settings } from '../settings.js';
 import utils from '../utils.js';
+import rangeSlider from '../../vendor/range-slider.js';
 import RangeSlider from '../../vendor/range-slider.min.js';
 
 class HourPicker extends BaseWidget {
