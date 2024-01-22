@@ -1,7 +1,7 @@
 import { select, templates, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
-import DataPicker from './DatePicker.js';
+import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js'; 
 
 class Booking {
@@ -14,7 +14,7 @@ class Booking {
     thisBooking.getDate();
   }
 
-  getData(){
+  getDate(){
     const thisBooking = this;
 
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
@@ -36,7 +36,7 @@ class Booking {
       ],
     };
 
-    console.log('getData params', params);
+    console.log('getDate params', params);
 
     const urls = {
       booking:       settings.db.url + '/' + settings.db.booking
@@ -72,7 +72,7 @@ class Booking {
         });
   }
 
-  parseData(bookings, eventsCurrent, eventsRepeat){
+  parseDate(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
     thisBooking.booked = {};
@@ -127,7 +127,7 @@ class Booking {
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
-    let allAvailable = false;
+    let allAvailable = true;
 
     if(
       typeof thisBooking.booked[thisBooking.date] == 'undefined',
