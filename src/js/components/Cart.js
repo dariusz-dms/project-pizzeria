@@ -7,8 +7,8 @@ class Cart {
     constructor(element) {
       const thisCart = this;
       thisCart.products = [];
-      thisCart.totalPrice = 0; // Dodaj inicjalizację totalPrice
-    thisCart.subtotalPrice = 0; // Dodaj inicjalizację subtotalPrice
+      thisCart.totalPrice = 0;
+    thisCart.subtotalPrice = 0;
       thisCart.getElements(element);
       thisCart.initActions();
       console.log('new Cart', thisCart);

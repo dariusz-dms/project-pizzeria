@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-named-as-default
-import select from '../settings.js';
+import { select } from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 
 class CartProduct {
