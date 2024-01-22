@@ -95,6 +95,7 @@ class Booking {
 
     // console.log('thisBooking.booked', thisBooking.booked);
     thisBooking.updateDOM();
+    thisBooking.hourPicker.initPlugin();
   }
 
   makeBooked(date, hour, duration, table) {
