@@ -78,8 +78,23 @@ class Booking {
 
     thisBooking.booked = {};
 
+    for(let item of bookings){
+      thisBooking.makeBooked(item.data, item.hour, item.duration, item.table);
+    }
+    
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.data, item.hour, item.duration, item.table);
+    }
+
+const minDate = thisBooking.datePicker.minDate;
+const maxDate = thisBooking.datePicker.maxDate;
+
+    for(let item of eventsRepeat){
+      if(item.repeat == 'daily'){
+        for (let loopDate = minDate; loopDate <= maxDate; utils.addDays(loopDate, 1)){
+          thisBooking.makeBooked(item.data, item.hour, item.duration, item.table);
+        }
+      }
     }
 
     console.log('thisBooking.booked', thisBooking.booked);
@@ -94,14 +109,16 @@ class Booking {
 
     const startHour = utils.hourToNumber(hour);
 
-    if(typeof thisBooking.booked[date] [startHour]== 'undefined'){
-      thisBooking.booked[date][startHour] = [];
-    }
+    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){
+      //console.log('loop', hourBlock);
+    
+      
+      if(typeof thisBooking.booked[date] [hourBlock]== 'undefined'){
+        thisBooking.booked[date][hourBlock] = [];
+      }
 
-    thisBooking.booked[date][hour][startHour].push(table);
+      thisBooking.booked[date][hour][hourBlock].push(table);
 
-    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock++){
-      console.log('loop', hourBlock);
     }
   }
   
