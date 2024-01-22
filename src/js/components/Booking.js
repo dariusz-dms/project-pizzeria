@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { select, templates, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
-import DatePicker from './DataPicker.js';
+import DataPicker from './DataPicker.js';
 import HourPicker from './HourPicker.js'; 
 
 class Booking {
@@ -12,10 +11,10 @@ class Booking {
     this.element = element;
     this.render();
     this.initWidgets();
-    thisBooking.getData();
+    thisBooking.getDate();
   }
 
-  getDate(){
+  getData(){
     const thisBooking = this;
 
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
@@ -181,7 +180,7 @@ class Booking {
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
 
-    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+    thisBooking.datePicker = new DataPicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
@@ -196,13 +195,5 @@ class Booking {
       thisBooking.updateDOM();
     });
   }
-
-  updateDOM() {
-    const thisBooking = this;
-
-    thisBooking.dom.bookingDate.innerHTML = thisBooking.datePicker.value;
-    thisBooking.dom.bookingHour.innerHTML = thisBooking.hourPicker.value;
-  }
 }
-
 export default Booking;
