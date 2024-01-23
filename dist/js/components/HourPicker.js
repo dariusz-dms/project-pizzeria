@@ -23,7 +23,10 @@ class HourPicker extends BaseWidget {
         thisWidget.value = thisWidget.dom.input.value;
         thisWidget.updateDisplayedHour();
         console.log('Input value:', thisWidget.dom.input.value);
-        thisWidget.updateDOM();
+
+        if (typeof thisWidget.updateDOM === 'function') {
+          thisWidget.updateDOM();
+        }
       });
     } else {
       console.error('RangeSlider is not defined. Make sure you have included the library.');
