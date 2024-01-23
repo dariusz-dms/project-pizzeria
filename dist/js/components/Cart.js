@@ -1,7 +1,6 @@
 import { settings, select, classNames, templates } from '../settings.js';
 import CartProduct from './CartProduct.js';
 import utils from '../utils.js';
-import Product from './Product.js';
 
 class Cart {
   constructor(element) {
@@ -87,8 +86,21 @@ class Cart {
       cartProduct.dom.wrapper.remove();
       thisCart.update();
     }
+  
+    if (cartProduct.product) {
+      const generatedHTML = templates.cartProduct(cartProduct.product);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
+      const newCartProduct = new CartProduct(cartProduct.product, generatedDOM);
+      newCartProduct.product = thisCart;
+      thisCart.products.push(newCartProduct);
+      thisCart.update();
+    } else {
+      console.error('Product is missing id:', cartProduct.product);
+    }
   }
   
+
   add(menuProduct) {
     const thisCart = this;
     const generatedHTML = templates.cartProduct(menuProduct);
@@ -96,10 +108,10 @@ class Cart {
     thisCart.dom.productList.appendChild(generatedDOM);
     const cartProduct = new CartProduct(menuProduct, generatedDOM);
     cartProduct.product = thisCart;
-  
-    menuProduct.price = parseFloat(menuProduct.price);  // Upewnij się, że cena jest liczbą
+
+    menuProduct.price = parseFloat(menuProduct.price);
     menuProduct.amount = parseInt(menuProduct.amount);
-  
+
     thisCart.products.push(cartProduct);
     thisCart.update();
   }

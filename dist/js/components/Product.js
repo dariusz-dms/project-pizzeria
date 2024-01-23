@@ -102,9 +102,18 @@ class Product {
 
     addToCart() {
       const thisProduct = this;
-      thisProduct.amount = thisProduct.amountWidget.value;
+      // app.cart.add(cartProductSummary);
+      thisProduct.form.reset();
+      thisProduct.amountWidget.setValue(settings.amountWidget.defaultValue);
     
-      app.cart.add(thisProduct);
+      const event = new CustomEvent('add-to-cart', {
+        bubbles: true, 
+        detail: {
+            product: thisProduct,
+        },
+      });
+
+      thisProduct.element.dispatchEvent(event);
     }
       
     prepareCartProduct() {
