@@ -185,9 +185,9 @@ class Booking {
 
   initTables() {
     const thisBooking = this;
-  
+
     thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
-  
+
     if (thisBooking.dom.floorPlan) {
       thisBooking.dom.floorPlan.addEventListener('click', function (event) {
         thisBooking.handleTableClick(event);
@@ -196,23 +196,27 @@ class Booking {
       console.error('Floor plan element not found!');
     }
   }
-  
+
   handleTableClick(event) {
     const thisBooking = this;
 
     const clickedElement = event.target;
 
     if (clickedElement.classList.contains(classNames.booking.table)) {
-      const tableId = clickedElement.getAttribute(settings.booking.tableIdAtrribute);
+      const tableId = clickedElement.getAttribute(settings.booking.tableIdAttribute);
+
       if (!isNaN(tableId)) {
         const tableIdNumber = parseInt(tableId);
 
-        if (!thisBooking.booked[thisBooking.date] || !thisBooking.booked[thisBooking.date][thisBooking.hour] || !thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableIdNumber)) {
+        if (thisBooking.selectedTable === tableIdNumber) {
+          // Clicked on already selected table, deselect it
+          thisBooking.selectedTable = null;
+          clickedElement.classList.remove(classNames.booking.tableSelected);
+        } else {
+          // Clicked on a new table, update selection
           thisBooking.removeSelected();
           thisBooking.selectedTable = tableIdNumber;
           clickedElement.classList.add(classNames.booking.tableSelected);
-        } else {
-          thisBooking.removeSelected();
         }
       }
     }
