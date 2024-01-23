@@ -153,6 +153,9 @@ class Booking {
     thisBooking.dom.bookingDate = thisBooking.dom.wrapper.querySelector(select.widgets.bookingDate);
     thisBooking.dom.bookingHour = thisBooking.dom.wrapper.querySelector(select.widgets.bookingHour);
 
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
+    console.log('Floor plan element:', thisBooking.dom.floorPlan);
+
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   }
 
@@ -182,14 +185,18 @@ class Booking {
 
   initTables() {
     const thisBooking = this;
-
+  
     thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
-
-    thisBooking.dom.floorPlan.addEventListener('click', function (event) {
-      thisBooking.handleTableClick(event);
-    });
+  
+    if (thisBooking.dom.floorPlan) {
+      thisBooking.dom.floorPlan.addEventListener('click', function (event) {
+        thisBooking.handleTableClick(event);
+      });
+    } else {
+      console.error('Floor plan element not found!');
+    }
   }
-
+  
   handleTableClick(event) {
     const thisBooking = this;
 
