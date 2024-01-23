@@ -116,6 +116,8 @@ class Booking {
   updateDOM() {
     const thisBooking = this;
 
+    console.log('updateDOM is called!');
+
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
@@ -200,6 +202,8 @@ class Booking {
   handleTableClick(event) {
     const thisBooking = this;
 
+    console.log('handleTableClick is called!', event.target);
+
     const clickedElement = event.target;
 
     if (clickedElement.classList.contains(classNames.booking.table)) {
@@ -209,11 +213,9 @@ class Booking {
         const tableIdNumber = parseInt(tableId);
 
         if (thisBooking.selectedTable === tableIdNumber) {
-          // Clicked on already selected table, deselect it
           thisBooking.selectedTable = null;
           clickedElement.classList.remove(classNames.booking.tableSelected);
         } else {
-          // Clicked on a new table, update selection
           thisBooking.removeSelected();
           thisBooking.selectedTable = tableIdNumber;
           clickedElement.classList.add(classNames.booking.tableSelected);
