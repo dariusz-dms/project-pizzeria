@@ -193,3 +193,8 @@
   @include flex(row, flex-start, space-between);
   margin: ($base-size * 4) auto;
 }
+
+.booking-table.selected {
+  background-color: #3498db;
+  border: 2px solid #06304d;
+}
