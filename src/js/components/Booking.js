@@ -189,23 +189,22 @@ class Booking {
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', function () {
-      thisBooking.updateDOM();
+        thisBooking.updateDOM();
     });
 
     thisBooking.dom.datePicker.addEventListener('valueChanged', function () {
-      thisBooking.updateDOM();
+        thisBooking.updateDOM();
     });
 
     thisBooking.dom.hourPicker.addEventListener('valueChanged', function () {
-      thisBooking.updateDOM();
+        thisBooking.updateDOM();
     });
 
     thisBooking.dom.wrapper.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      thisBooking.sendBooking();
+        event.preventDefault();
+        thisBooking.sendBooking();
     });
-  }
+}
 
   initTables() {
     const thisBooking = this;
@@ -255,51 +254,58 @@ class Booking {
   }
 
   sendBooking() {
-  const thisBooking = this;
+    const thisBooking = this;
 
-  console.log('Phone element:', thisBooking.dom.phone);
-  console.log('Address element:', thisBooking.dom.address);
+    console.log('Phone element:', thisBooking.dom.phone);
+    console.log('Address element:', thisBooking.dom.address);
 
-  const url = settings.db.url + '/' + settings.db.bookings;
-
-  const payload = {
-    date: thisBooking.date,
-    hour: thisBooking.hourPicker.value,
-    table: thisBooking.selectedTable,
-    duration: thisBooking.hoursAmount.value,
-    ppl: thisBooking.peopleAmount.value,
-    starters: thisBooking.getStarters(),
-    phone: thisBooking.dom.phone.value,
-    address: thisBooking.dom.address.value,
-  };
-  
-    if (!payload.table) {
-      alert('Please select a table!');
-      return;
+    // Dodaj sprawdzenie czy elementy są zdefiniowane
+    if (!thisBooking.dom.phone || !thisBooking.dom.address) {
+        console.error('Phone or address element is not defined.');
+        return;
     }
-  
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+
+    const url = settings.db.url + '/' + settings.db.bookings;
+
+    const payload = {
+        date: thisBooking.date,
+        hour: thisBooking.hourPicker.value,
+        table: thisBooking.selectedTable,
+        duration: thisBooking.hoursAmount.value,
+        ppl: thisBooking.peopleAmount.value,
+        starters: thisBooking.getStarters(),
+        phone: thisBooking.dom.phone.value,
+        address: thisBooking.dom.address.value,
     };
-  
+
+    if (!payload.table) {
+        alert('Please select a table!');
+        return;
+    }
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    };
+
     fetch(url, options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Booking request failed!');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Booking successful!', data);
-        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
-        thisBooking.updateDOM();
-      })
-      .catch(error => console.error('Booking error:', error));
-  }
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Booking request failed!');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Booking successful!', data);
+            thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+            thisBooking.updateDOM();
+        })
+        .catch(error => console.error('Booking error:', error));
+}
+
 
   getStarters() {
     const thisBooking = this;
