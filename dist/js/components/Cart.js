@@ -1,7 +1,7 @@
 import { settings, select, classNames, templates } from '../settings.js';
 import CartProduct from './CartProduct.js';
 import utils from '../utils.js';
-import Product from './Product.js'; // Poprawiony import
+import Product from './Product.js';
 
 class Cart {
   constructor(element) {
@@ -29,20 +29,20 @@ class Cart {
 
   initActions() {
     const thisCart = this;
-
+  
     thisCart.dom.toggleTrigger.addEventListener('click', (event) => {
       event.preventDefault();
       thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
     });
-
+  
     thisCart.dom.productList.addEventListener('updated', () => {
       thisCart.update();
     });
-
+  
     thisCart.dom.productList.addEventListener('remove', (event) => {
       thisCart.remove(event.detail.cartProduct);
     });
-
+  
     thisCart.dom.form.addEventListener('submit', (event) => {
       event.preventDefault();
       thisCart.sendOrder();
@@ -81,26 +81,14 @@ class Cart {
   remove(cartProduct) {
     const thisCart = this;
     const index = thisCart.products.indexOf(cartProduct);
-
+  
     if (index !== -1) {
       thisCart.products.splice(index, 1);
       cartProduct.dom.wrapper.remove();
       thisCart.update();
     }
-
-    if (Product && Product.id) { // Poprawiona warunek i nazwa klasy
-      const generatedHTML = templates.cartProduct(Product);
-      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-      thisCart.dom.productList.appendChild(generatedDOM);
-      const newCartProduct = new CartProduct(Product, generatedDOM);
-      newCartProduct.product = thisCart;
-      thisCart.products.push(newCartProduct);
-      thisCart.update();
-    } else {
-      console.error('Product is missing id:', Product);
-    }
   }
-
+  
   add(menuProduct) {
     const thisCart = this;
     const generatedHTML = templates.cartProduct(menuProduct);
@@ -108,10 +96,10 @@ class Cart {
     thisCart.dom.productList.appendChild(generatedDOM);
     const cartProduct = new CartProduct(menuProduct, generatedDOM);
     cartProduct.product = thisCart;
-
-    menuProduct.price = parseFloat(menuProduct.price);
+  
+    menuProduct.price = parseFloat(menuProduct.price);  // Upewnij się, że cena jest liczbą
     menuProduct.amount = parseInt(menuProduct.amount);
-
+  
     thisCart.products.push(cartProduct);
     thisCart.update();
   }
