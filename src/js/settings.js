@@ -63,6 +63,7 @@
       peopleAmount: '.people-amount',
       hoursAmount: '.hours-amount',
       tables: '.floor-plan .table',
+      floorPlan: '.floor-plan',
     },
     nav: {
       links: '.main-nav a',
@@ -145,4 +146,4 @@
    templates.cartProduct = getTemplate(select.templateOf.cartProduct);
    templates.bookingWidget = getTemplate(select.templateOf.bookingWidget);
 
-   export default 'settings';
+   export default settings;
