@@ -128,7 +128,7 @@ class Booking {
     }
 
     for (let table of thisBooking.dom.tables) {
-      let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
