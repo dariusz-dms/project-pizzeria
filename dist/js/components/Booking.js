@@ -17,10 +17,10 @@ class Booking {
 
   getDate() {
     const thisBooking = this;
-
+  
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
-
+  
     const params = {
       booking: [
         startDateParam,
@@ -36,15 +36,15 @@ class Booking {
         endDateParam,
       ],
     };
-
+  
     console.log('getDate params', params);
-
+  
     const urls = {
       booking: settings.db.url + '/' + settings.db.bookings + '?' + params.booking.join('&'),
       eventsCurrent: settings.db.url + '/' + settings.db.events + '?' + params.eventsCurrent.join('&'),
       eventsRepeat: settings.db.url + '/' + settings.db.events + '?' + params.eventsRepeat.join('&'),
     };
-
+  
     Promise.all([
       fetch(urls.booking),
       fetch(urls.eventsCurrent),
@@ -62,8 +62,12 @@ class Booking {
       })
       .then(function ([bookings, eventsCurrent, eventsRepeat]) {
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+      })
+      .catch(function (error) {
+        console.error('Error during data fetching:', error);
       });
   }
+  
 
   parseData(bookings, eventsCurrent, eventsRepeat) {
     const thisBooking = this;
@@ -121,31 +125,31 @@ class Booking {
   
     let allAvailable = true;
   
-    if (thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour]) {
+    if (
+      thisBooking.booked[thisBooking.date] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour].some
+    ) {
       allAvailable = false;
     }
   
-    for (const table of thisBooking.dom.tables) {
-      const tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
+    for (let table of thisBooking.dom.tables) {
+      let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
+      if (!isNaN(tableId)) {
+        tableId = parseInt(tableId);
+      }
   
-      if (!allAvailable && thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)) {
+      if (
+        !allAvailable &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].some(tableIdInArray => tableIdInArray === tableId)
+      ) {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
-  
-      const reservedInEvents = thisBooking.events.some(event =>
-        event.table === tableId &&
-        utils.dateToStr(event.date) === thisBooking.date &&
-        utils.hourToNumber(event.hour) <= thisBooking.hour &&
-        utils.hourToNumber(event.hour) + event.duration > thisBooking.hour
-      );
-  
-      if (reservedInEvents) {
-        table.classList.add(classNames.booking.tableBooked);
-      }
     }
   }
+  
   
 
   render() {
