@@ -115,31 +115,38 @@ class Booking {
 
   updateDOM() {
     const thisBooking = this;
-
-    console.log('updateDOM is called!');
-
+  
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-
+  
     let allAvailable = true;
-
+  
     if (thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour]) {
       allAvailable = false;
     }
-
-    for (let table of thisBooking.dom.tables) {
-      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-      if (!isNaN(tableId)) {
-        tableId = parseInt(tableId);
-      }
-
-      if (!allAvailable && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1) {
+  
+    for (const table of thisBooking.dom.tables) {
+      const tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
+  
+      if (!allAvailable && thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)) {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
+  
+      const reservedInEvents = thisBooking.events.some(event =>
+        event.table === tableId &&
+        utils.dateToStr(event.date) === thisBooking.date &&
+        utils.hourToNumber(event.hour) <= thisBooking.hour &&
+        utils.hourToNumber(event.hour) + event.duration > thisBooking.hour
+      );
+  
+      if (reservedInEvents) {
+        table.classList.add(classNames.booking.tableBooked);
+      }
     }
   }
+  
 
   render() {
     const thisBooking = this;
