@@ -1,6 +1,7 @@
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 import { select, settings } from '../settings.js';
+import flatpickr from 'c://kodilla/zadania/7modul/project-pizzeria/node_modules/flatpickr/dist/flatpickr.js';
 
 class DatePicker extends BaseWidget {
   constructor(wrapper) {
@@ -17,7 +18,8 @@ class DatePicker extends BaseWidget {
 
     thisWidget.minDate = new Date();
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
-  flatpickr (thisWidget.dom.input, {
+
+    flatpickr(thisWidget.dom.input, {
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,

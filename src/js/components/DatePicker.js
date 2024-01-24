@@ -1,7 +1,7 @@
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 import { select, settings } from '../settings.js';
-import flatpickr from 'flatpickr';
+import flatpickr from 'c://kodilla/zadania/7modul/project-pizzeria/node_modules/flatpickr/dist/flatpickr.js';
 
 class DatePicker extends BaseWidget {
   constructor(wrapper) {
