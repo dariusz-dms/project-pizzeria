@@ -171,8 +171,9 @@ class Booking {
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
-    console.log('Phone element:', thisBooking.dom.phone);
-    console.log('Address element:', thisBooking.dom.address);
+    console.log('Element telefonu:', thisBooking.dom.phone);
+    console.log('Element adresu:', thisBooking.dom.address);
+
   }
 
   initWidgets() {
@@ -254,14 +255,16 @@ class Booking {
 
   sendBooking() {
     const thisBooking = this;
-
+  
+    console.log('Element telefonu:', thisBooking.dom.phone);
+    console.log('Element adresu:', thisBooking.dom.address);
+    
     if (!thisBooking.dom.phone || !thisBooking.dom.address) {
-      console.error('Phone or address element is not defined.');
+      console.error('Element telefonu lub adresu nie jest zdefiniowany.');
       return;
     }
-
-    console.log('Phone element:', thisBooking.dom.phone);
-    console.log('Address element:', thisBooking.dom.address);
+  
+    
 
     const url = settings.db.url + '/' + settings.db.bookings;
 
