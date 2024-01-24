@@ -13,38 +13,31 @@ class Booking {
     thisBooking.initWidgets();
     thisBooking.getDate();
     thisBooking.initTables();
+
+    thisBooking.phoneElement = thisBooking.dom.phone;
+    thisBooking.addressElement = thisBooking.dom.address;
   }
 
   getDate() {
     const thisBooking = this;
-  
+
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
-  
+
     const params = {
-      booking: [
-        startDateParam,
-        endDateParam,
-      ],
-      eventsCurrent: [
-        settings.db.notRepeatParam,
-        startDateParam,
-        endDateParam,
-      ],
-      eventsRepeat: [
-        settings.db.repeatParam,
-        endDateParam,
-      ],
+      booking: [startDateParam, endDateParam],
+      eventsCurrent: [settings.db.notRepeatParam, startDateParam, endDateParam],
+      eventsRepeat: [settings.db.repeatParam, endDateParam],
     };
-  
+
     console.log('getDate params', params);
-  
+
     const urls = {
       booking: settings.db.url + '/' + settings.db.bookings + '?' + params.booking.join('&'),
       eventsCurrent: settings.db.url + '/' + settings.db.events + '?' + params.eventsCurrent.join('&'),
       eventsRepeat: settings.db.url + '/' + settings.db.events + '?' + params.eventsRepeat.join('&'),
     };
-  
+
     Promise.all([
       fetch(urls.booking),
       fetch(urls.eventsCurrent),
@@ -67,7 +60,7 @@ class Booking {
         console.error('Error during data fetching:', error);
       });
   }
-  
+
   parseData(bookings, eventsCurrent, eventsRepeat) {
     const thisBooking = this;
 
@@ -117,36 +110,36 @@ class Booking {
   }
 
   updateDOM() {
-  const thisBooking = this;
+    const thisBooking = this;
 
-  thisBooking.date = thisBooking.datePicker.value;
-  thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
-  let allAvailable = true;
-
-  if (
-    thisBooking.booked[thisBooking.date] &&
-    thisBooking.booked[thisBooking.date][thisBooking.hour] &&
-    thisBooking.booked[thisBooking.date][thisBooking.hour].some
-  ) {
-    allAvailable = false;
-  }
-
-  for (let table of thisBooking.dom.tables) {
-    let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
-    if (!isNaN(tableId)) {
-      tableId = parseInt(tableId);
-    }
+    let allAvailable = true;
 
     if (
-      !allAvailable &&
-      thisBooking.booked[thisBooking.date][thisBooking.hour].some(tableIdInArray => tableIdInArray === tableId)
+      thisBooking.booked[thisBooking.date] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour].some
     ) {
-      table.classList.add(classNames.booking.tableBooked);
-    } else {
-      table.classList.remove(classNames.booking.tableBooked);
+      allAvailable = false;
     }
-  }
+
+    for (let table of thisBooking.dom.tables) {
+      let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
+      if (!isNaN(tableId)) {
+        tableId = parseInt(tableId);
+      }
+
+      if (
+        !allAvailable &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].some(tableIdInArray => tableIdInArray === tableId)
+      ) {
+        table.classList.add(classNames.booking.tableBooked);
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+      }
+    }
   }
 
   render() {
@@ -162,18 +155,12 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.bookingDate = thisBooking.dom.wrapper.querySelector(select.widgets.bookingDate);
     thisBooking.dom.bookingHour = thisBooking.dom.wrapper.querySelector(select.widgets.bookingHour);
-  
-    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
-    console.log('Floor plan element:', thisBooking.dom.floorPlan);
-  
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-  
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
-    console.log('Element telefonu:', thisBooking.dom.phone);
-    console.log('Element adresu:', thisBooking.dom.address);
-
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
+   
   }
 
   initWidgets() {
@@ -255,18 +242,6 @@ class Booking {
 
   sendBooking() {
     const thisBooking = this;
-  
-    console.log('Element telefonu:', thisBooking.dom.phone);
-    console.log('Element adresu:', thisBooking.dom.address);
-    
-    if (!thisBooking.dom.phone || !thisBooking.dom.address) {
-      console.error('Element telefonu lub adresu nie jest zdefiniowany.');
-      return;
-    }
-  
-    
-
-    const url = settings.db.url + '/' + settings.db.bookings;
 
     const payload = {
       date: thisBooking.date,
@@ -275,8 +250,8 @@ class Booking {
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
       starters: thisBooking.getStarters(),
-      phone: thisBooking.dom.phone.value,
-      address: thisBooking.dom.address.value,
+      phone: thisBooking.phoneElement.value,
+      address: thisBooking.addressElement.value,
     };
 
     if (!payload.table) {
@@ -292,7 +267,7 @@ class Booking {
       body: JSON.stringify(payload),
     };
 
-    fetch(url, options)
+    fetch(settings.db.url + '/' + settings.db.bookings, options)
       .then(response => {
         if (!response.ok) {
           throw new Error('Booking request failed!');
@@ -309,15 +284,12 @@ class Booking {
 
   getStarters() {
     const thisBooking = this;
-  
     const startersArray = [];
-  
     for (const starterInput of thisBooking.dom.starters) {
       if (starterInput.checked) {
         startersArray.push(starterInput.value);
       }
     }
-  
     return startersArray;
   }
 }
