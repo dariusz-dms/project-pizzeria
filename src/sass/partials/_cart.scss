@@ -145,7 +145,7 @@
 
     input, button {
       width: 100%;
-      margin-bottom: ($base-size / 2);
+      margin: 0 0 math.div($base-size, 4) 0;
     }
   }
 }
