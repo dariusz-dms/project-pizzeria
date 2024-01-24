@@ -171,7 +171,6 @@ class Booking {
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
-  
     console.log('Phone element:', thisBooking.dom.phone);
     console.log('Address element:', thisBooking.dom.address);
   }
@@ -255,17 +254,17 @@ class Booking {
 
   sendBooking() {
     const thisBooking = this;
-
+  
     if (!thisBooking.dom.phone || !thisBooking.dom.address) {
       console.error('Phone or address element is not defined.');
       return;
     }
-
+  
     console.log('Phone element:', thisBooking.dom.phone);
     console.log('Address element:', thisBooking.dom.address);
-
+  
     const url = settings.db.url + '/' + settings.db.bookings;
-
+  
     const payload = {
       date: thisBooking.date,
       hour: thisBooking.hourPicker.value,
@@ -276,12 +275,12 @@ class Booking {
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
     };
-
+  
     if (!payload.table) {
       alert('Please select a table!');
       return;
     }
-
+  
     const options = {
       method: 'POST',
       headers: {
@@ -289,7 +288,7 @@ class Booking {
       },
       body: JSON.stringify(payload),
     };
-
+  
     fetch(url, options)
       .then(response => {
         if (!response.ok) {
@@ -304,6 +303,7 @@ class Booking {
       })
       .catch(error => console.error('Booking error:', error));
   }
+  
 
   getStarters() {
     const thisBooking = this;
