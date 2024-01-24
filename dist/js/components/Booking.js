@@ -302,6 +302,111 @@ class Booking {
         thisBooking.updateDOM();
       })
       .catch(error => console.error('Booking error:', error));
+  }:sendBooking() {
+    const thisBooking = this;
+  
+    // Dodaj sprawdzenie czy phone i address są zdefiniowane
+    if (!thisBooking.dom.phone || !thisBooking.dom.address) {
+      console.error('Phone or address element is not defined.');
+      return;
+    }
+  
+    console.log('Phone element:', thisBooking.dom.phone);
+    console.log('Address element:', thisBooking.dom.address);
+  
+    const url = settings.db.url + '/' + settings.db.bookings;
+  
+    const payload = {
+      date: thisBooking.date,
+      hour: thisBooking.hourPicker.value,
+      table: thisBooking.selectedTable,
+      duration: thisBooking.hoursAmount.value,
+      ppl: thisBooking.peopleAmount.value,
+      starters: thisBooking.getStarters(),
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+  
+    if (!payload.table) {
+      alert('Please select a table!');
+      return;
+    }
+  
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+  
+    fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Booking request failed!');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Booking successful!', data);
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        thisBooking.updateDOM();
+      })
+      .catch(error => console.error('Booking error:', error));
+  }
+  
+
+  sendBooking() {
+    const thisBooking = this;
+  
+    // Dodaj sprawdzenie czy phone i address są zdefiniowane
+    if (!thisBooking.dom.phone || !thisBooking.dom.address) {
+      console.error('Phone or address element is not defined.');
+      return;
+    }
+  
+    console.log('Phone element:', thisBooking.dom.phone);
+    console.log('Address element:', thisBooking.dom.address);
+  
+    const url = settings.db.url + '/' + settings.db.bookings;
+  
+    const payload = {
+      date: thisBooking.date,
+      hour: thisBooking.hourPicker.value,
+      table: thisBooking.selectedTable,
+      duration: thisBooking.hoursAmount.value,
+      ppl: thisBooking.peopleAmount.value,
+      starters: thisBooking.getStarters(),
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+  
+    if (!payload.table) {
+      alert('Please select a table!');
+      return;
+    }
+  
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+  
+    fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Booking request failed!');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Booking successful!', data);
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        thisBooking.updateDOM();
+      })
+      .catch(error => console.error('Booking error:', error));
   }
   
 
