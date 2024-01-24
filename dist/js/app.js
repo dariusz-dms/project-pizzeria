@@ -1,70 +1,84 @@
-"use strict";
+import { settings, select, classNames, templates } from './settings.js';
+import Product from './components/Product.js';
+import Booking from './components/Booking.js';
+import Cart from './components/Cart.js';
 
-var _settings = require("./settings.js");
-var _Product = _interopRequireDefault(require("./components/Product.js"));
-var _Booking = _interopRequireDefault(require("./components/Booking.js"));
-var _Cart = _interopRequireDefault(require("./components/Cart.js"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 document.addEventListener('DOMContentLoaded', function () {
-  var orderLink = document.querySelector('a[href="#order"]');
-  var bookingLink = document.querySelector('a[href="#booking"]');
-  var orderSection = document.getElementById('order');
-  var bookingSection = document.getElementById('booking');
+  const orderLink = document.querySelector('a[href="#order"]');
+  const bookingLink = document.querySelector('a[href="#booking"]');
+  const orderSection = document.getElementById('order');
+  const bookingSection = document.getElementById('booking');
+
   orderLink.addEventListener('click', function () {
     orderSection.style.display = 'block';
     bookingSection.style.display = 'none';
   });
+
   bookingLink.addEventListener('click', function () {
     orderSection.style.display = 'none';
     bookingSection.style.display = 'block';
   });
 });
-var app = {
-  init: function init() {
-    var thisApp = this;
+
+const app = {
+  init() {
+    const thisApp = this;
     console.log('*** App starting ***');
     console.log('thisApp:', thisApp);
-    console.log('classNames:', _settings.classNames);
-    console.log('settings:', _settings.settings);
-    console.log('templates:', _settings.templates);
+    console.log('classNames:', classNames);
+    console.log('settings:', settings);
+    console.log('templates:', templates);
+
     thisApp.initData();
   },
-  initData: function initData() {
-    var thisApp = this;
+  initData() {
+    const thisApp = this;
+
     thisApp.data = {};
-    var url = "".concat(_settings.settings.db.url, "/").concat(_settings.settings.db.products);
-    fetch(url).then(function (rawResponse) {
-      return rawResponse.json();
-    }).then(function (parsedResponse) {
-      console.log('parsedResponse', parsedResponse);
-      thisApp.data.products = parsedResponse;
-      thisApp.initMenu();
-      thisApp.initCart();
-      thisApp.initBooking();
-      console.log('thisApp.data', JSON.stringify(thisApp.data));
-    });
+
+    const url = `${settings.db.url}/${settings.db.products}`;
+
+    fetch(url)
+      .then((rawResponse) => rawResponse.json())
+      .then((parsedResponse) => {
+        console.log('parsedResponse', parsedResponse);
+
+        thisApp.data.products = parsedResponse;
+
+        thisApp.initMenu();
+        thisApp.initCart();
+        thisApp.initBooking();
+
+        console.log('thisApp.data', JSON.stringify(thisApp.data));
+      });
   },
-  initMenu: function initMenu() {
-    var thisApp = this;
+  initMenu() {
+    const thisApp = this;
+
     console.log('thisApp.data:', thisApp.data);
-    for (var productId in thisApp.data.products) {
-      var productData = thisApp.data.products[productId];
-      new _Product["default"](productData.id, productData);
+
+    for (const productId in thisApp.data.products) {
+      const productData = thisApp.data.products[productId];
+      new Product(productData.id, productData);
     }
   },
-  initCart: function initCart() {
-    var thisApp = this;
-    var cartElem = document.querySelector(_settings.select.containerOf.cart);
-    thisApp.cart = new _Cart["default"](cartElem);
-    thisApp.productList = document.querySelector(_settings.select.containerOf.menu);
+  initCart() {
+    const thisApp = this;
+
+    const cartElem = document.querySelector(select.containerOf.cart);
+    thisApp.cart = new Cart(cartElem);
+
+    thisApp.productList = document.querySelector(select.containerOf.menu);
+
     thisApp.productList.addEventListener('add-to-cart', function (event) {
       thisApp.cart.add(event.detail.product);
     });
   },
-  initBooking: function initBooking() {
-    var thisApp = this;
-    var bookingContainer = document.querySelector(_settings.select.containerOf.booking);
-    thisApp.booking = new _Booking["default"](bookingContainer);
-  }
+  initBooking() {
+    const thisApp = this;
+    const bookingContainer = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(bookingContainer);
+  },
 };
+
 app.init();
