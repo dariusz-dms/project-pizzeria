@@ -1,5 +1,3 @@
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css'; // Upewnij się, że dodajesz również odpowiednią kaskadowaną arkusz stylów
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 import { select, settings } from '../settings.js';
@@ -10,7 +8,7 @@ class DatePicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
-    thisWidget.value = thisWidget.dom.input.value;
+    thisWidget.value = thisWidget.dom.input.value; // Dodaj tę linię
     thisWidget.initPlugin();
   }
 

@@ -169,8 +169,8 @@ class Booking {
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
-    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
-    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector('.order-confirmation [name="phone"]');
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector('.order-confirmation [name="address"]');
     console.log('Phone element:', thisBooking.dom.phone);
     console.log('Address element:', thisBooking.dom.address);
   }
