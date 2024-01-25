@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="vendor/range-slider.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2.2.2/dist/flickity.min.css">
 </head>
 <body>
 
@@ -22,6 +23,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+          <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -63,6 +65,23 @@
   </header>
 
   <div id="pages">
+    <section id="home"> <!-- Nowa sekcja Home -->
+      <!-- Karuzela -->
+      <div class="carousel" data-flickity='{ "autoPlay": true, "wrapAround": true }'>
+        <div class="carousel-cell">
+          <img src="path/to/image1.jpg" alt="Slide 1">
+        </div>
+        <div class="carousel-cell">
+          <img src="path/to/image2.jpg" alt="Slide 2">
+        </div>
+        <div class="carousel-cell">
+          <img src="path/to/image3.jpg" alt="Slide 3">
+        </div>
+        <!-- Dodaj kolejne slajdy według potrzeb -->
+      </div>
+    
+      <!-- Pozostała zawartość sekcji Home -->
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
