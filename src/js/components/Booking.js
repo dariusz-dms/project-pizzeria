@@ -116,7 +116,48 @@ class Booking {
     }
   }
 
+  updateDOM() {
+    const thisBooking = this;
   
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+  
+    let allAvailable = true;
+  
+    if (
+      thisBooking.booked[thisBooking.date] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour] &&
+      thisBooking.booked[thisBooking.date][thisBooking.hour].some
+    ) {
+      allAvailable = false;
+    }
+  
+    console.log('Selected table:', thisBooking.selectedTable);
+  
+    for (let table of thisBooking.dom.tables) {
+      let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
+      if (!isNaN(tableId)) {
+        tableId = parseInt(tableId);
+      }
+  
+      if (
+        !allAvailable &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].some(tableIdInArray => tableIdInArray === tableId)
+      ) {
+        table.classList.add(classNames.booking.tableBooked);
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+      }
+  
+      if (thisBooking.selectedTable === tableId) {
+        console.log('Adding selected class to table:', tableId);
+        table.classList.add(classNames.booking.tableSelected);
+      } else {
+        console.log('Removing selected class from table:', tableId);
+        table.classList.remove(classNames.booking.tableSelected);
+      }
+    }
+  }
 
   render() {
     const thisBooking = this;

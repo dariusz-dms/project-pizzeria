@@ -27,6 +27,20 @@ class Product {
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
+      thisProduct.imagesContainer = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.initImages();
+    }
+  
+    initImages() {
+      const thisProduct = this;
+      const mainImage = thisProduct.imagesContainer.querySelector(select.menuProduct.imageVisible);
+      const images = thisProduct.imagesContainer.querySelectorAll('img');
+      for (const image of images) {
+        image.addEventListener('click', function () {
+          const clickedImageSrc = this.getAttribute('src');
+          mainImage.setAttribute('src', clickedImageSrc);
+        });
+      }
     }
 
     initAccordion() {
