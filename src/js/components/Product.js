@@ -1,4 +1,4 @@
-import {settings, select, classNames, templates, } from '../settings.js';
+import { settings, select, classNames, templates } from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 import utils from '../utils.js';
 
@@ -47,12 +47,15 @@ class Product {
     thisProduct.form.addEventListener('submit', (event) => {
       event.preventDefault();
       thisProduct.processOrder();
+      thisProduct.addToCart();
     });
+
     for (const input of thisProduct.formInputs) {
       input.addEventListener('change', () => {
         thisProduct.processOrder();
       });
     }
+
     thisProduct.cartButton.addEventListener('click', (event) => {
       event.preventDefault();
       thisProduct.processOrder();
@@ -64,26 +67,34 @@ class Product {
     const thisProduct = this;
     const formData = utils.serializeFormToObject(thisProduct.form);
     let { price } = thisProduct.data;
+
     for (const paramId in thisProduct.data.params) {
       const param = thisProduct.data.params[paramId];
+
       for (const optionId in param.options) {
         const option = param.options[optionId];
         const optionImage = thisProduct.element.querySelector(`.${paramId}-${optionId}`);
-        if (formData[paramId] && formData[paramId].includes(optionId)) {
+
+        const isOptionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+        if (isOptionSelected) {
           if (!option.default) {
             price += parseFloat(option.price);
             if (optionImage) {
               optionImage.classList.add(classNames.menuProduct.imageVisible);
             }
           }
-        } else if (option.default) {
-          price -= option.price;
-          if (optionImage) {
-            optionImage.classList.remove(classNames.menuProduct.imageVisible);
+        } else {
+          if (option.default) {
+            price -= parseFloat(option.price);
+            if (optionImage) {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
           }
         }
       }
     }
+
     thisProduct.priceSingle = price;
     price *= thisProduct.amountWidget.value;
     thisProduct.priceElem.innerHTML = price;
@@ -138,20 +149,24 @@ class Product {
     const thisProduct = this;
     const formData = utils.serializeFormToObject(thisProduct.form);
     const params = {};
+
     for (const paramId in thisProduct.data.params) {
       const param = thisProduct.data.params[paramId];
       params[paramId] = {
         label: param.label,
         options: {},
       };
+
       for (const optionId in param.options) {
         const option = param.options[optionId];
         const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
         if (optionSelected) {
           params[paramId].options[optionId] = option.label;
         }
       }
     }
+
     return params;
   }
 }
