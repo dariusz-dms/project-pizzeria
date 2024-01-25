@@ -13,9 +13,6 @@ class Booking {
     thisBooking.initWidgets();
     thisBooking.getDate();
     thisBooking.initTables();
-
-    thisBooking.phoneElement = thisBooking.dom.phone;
-    thisBooking.addressElement = thisBooking.dom.address;
   }
 
   getDate() {
@@ -25,9 +22,19 @@ class Booking {
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
     const params = {
-      booking: [startDateParam, endDateParam],
-      eventsCurrent: [settings.db.notRepeatParam, startDateParam, endDateParam],
-      eventsRepeat: [settings.db.repeatParam, endDateParam],
+      booking: [
+        startDateParam,
+        endDateParam,
+      ],
+      eventsCurrent: [
+        settings.db.notRepeatParam,
+        startDateParam,
+        endDateParam,
+      ],
+      eventsRepeat: [
+        settings.db.repeatParam,
+        endDateParam,
+      ],
     };
 
     console.log('getDate params', params);
@@ -109,38 +116,7 @@ class Booking {
     }
   }
 
-  updateDOM() {
-    const thisBooking = this;
-
-    thisBooking.date = thisBooking.datePicker.value;
-    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-
-    let allAvailable = true;
-
-    if (
-      thisBooking.booked[thisBooking.date] &&
-      thisBooking.booked[thisBooking.date][thisBooking.hour] &&
-      thisBooking.booked[thisBooking.date][thisBooking.hour].some
-    ) {
-      allAvailable = false;
-    }
-
-    for (let table of thisBooking.dom.tables) {
-      let tableId = table.getAttribute(settings.booking.tableIdAtrribute);
-      if (!isNaN(tableId)) {
-        tableId = parseInt(tableId);
-      }
-
-      if (
-        !allAvailable &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].some(tableIdInArray => tableIdInArray === tableId)
-      ) {
-        table.classList.add(classNames.booking.tableBooked);
-      } else {
-        table.classList.remove(classNames.booking.tableBooked);
-      }
-    }
-  }
+  
 
   render() {
     const thisBooking = this;
@@ -160,7 +136,9 @@ class Booking {
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
     thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
-   
+    console.log('Floor plan element:', thisBooking.dom.floorPlan);
+    console.log('Element telefonu:', thisBooking.dom.phone);
+    console.log('Element adresu:', thisBooking.dom.address);
   }
 
   initWidgets() {
@@ -174,23 +152,34 @@ class Booking {
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
-    thisBooking.dom.wrapper.addEventListener('updated', function () {
-      thisBooking.updateDOM();
-    });
-
-    thisBooking.dom.datePicker.addEventListener('valueChanged', function () {
-      thisBooking.updateDOM();
-    });
-
-    thisBooking.dom.hourPicker.addEventListener('valueChanged', function () {
-      thisBooking.updateDOM();
-    });
+    thisBooking.debouncedSendBooking = thisBooking.debounce(thisBooking.sendBooking, 300);
 
     thisBooking.dom.wrapper.addEventListener('submit', function (event) {
       event.preventDefault();
-
-      thisBooking.sendBooking();
+      thisBooking.debouncedSendBooking();
     });
+  }
+
+  debounce(func, wait, immediate) {
+    let timeout;
+
+    return function executedFunction() {
+      const context = this;
+      const args = arguments;
+
+      const later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      const callNow = immediate && !timeout;
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(later, wait);
+
+      if (callNow) func.apply(context, args);
+    };
   }
 
   initTables() {
@@ -209,23 +198,27 @@ class Booking {
 
   handleTableClick(event) {
     const thisBooking = this;
-
+  
     console.log('handleTableClick is called!', event.target);
-
+  
     const clickedElement = event.target;
-
+  
     if (clickedElement.classList.contains(classNames.booking.table)) {
       const tableId = clickedElement.getAttribute(settings.booking.tableIdAttribute);
-
+  
       if (!isNaN(tableId)) {
         const tableIdNumber = parseInt(tableId);
-
+  
+        console.log('Selected table:', tableIdNumber);
+  
         if (thisBooking.selectedTable === tableIdNumber) {
           thisBooking.selectedTable = null;
+          console.log('Deselected table:', tableIdNumber);
           clickedElement.classList.remove(classNames.booking.tableSelected);
         } else {
           thisBooking.removeSelected();
           thisBooking.selectedTable = tableIdNumber;
+          console.log('Selected table:', tableIdNumber);
           clickedElement.classList.add(classNames.booking.tableSelected);
         }
       }
@@ -243,6 +236,11 @@ class Booking {
   sendBooking() {
     const thisBooking = this;
 
+    const phoneElement = thisBooking.dom.phone;
+    const addressElement = thisBooking.dom.address;
+
+    const url = settings.db.url + '/' + settings.db.bookings;
+
     const payload = {
       date: thisBooking.date,
       hour: thisBooking.hourPicker.value,
@@ -250,8 +248,8 @@ class Booking {
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
       starters: thisBooking.getStarters(),
-      phone: thisBooking.phoneElement.value,
-      address: thisBooking.addressElement.value,
+      phone: phoneElement.value,
+      address: addressElement.value,
     };
 
     if (!payload.table) {
@@ -267,7 +265,7 @@ class Booking {
       body: JSON.stringify(payload),
     };
 
-    fetch(settings.db.url + '/' + settings.db.bookings, options)
+    fetch(url, options)
       .then(response => {
         if (!response.ok) {
           throw new Error('Booking request failed!');
@@ -284,12 +282,15 @@ class Booking {
 
   getStarters() {
     const thisBooking = this;
+
     const startersArray = [];
+
     for (const starterInput of thisBooking.dom.starters) {
       if (starterInput.checked) {
         startersArray.push(starterInput.value);
       }
     }
+
     return startersArray;
   }
 }
